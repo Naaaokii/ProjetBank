@@ -1,0 +1,122 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.error-alert {
+    background-color: red;
+}
+/*------------------------- HEADER --------------------------------------*/
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(126, 217, 87);
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    height: 80px;
+}
+
+.divnav {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    text-align: right;
+}
+
+.correctlink{
+    text-decoration: none;
+    color: white;
+    margin-left: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.correctlink:hover{
+    color: rgb(255, 255, 255);
+    border-top-style: solid;
+    border-color: rgb(0, 0, 0);
+    padding-top: 15px;
+    margin-top: -10px;
+}
+.fa-user {
+    background-color: rgb(255, 255, 255);
+    padding: 13px 16px 13px 16px;
+    border-radius: 50%;
+    margin-left: 25px;
+    margin-top: -8px;
+    color: rgb(0, 0, 0);
+}
+
+
+/*------------------------- FOOTER --------------------------------------*/
+
+
+.footer {
+    display: flex;
+    background-color: rgb(126, 217, 87);
+    justify-content: space-around;
+    margin-top: 100px;
+}
+.foo-brands {
+    background-color: rgb(255, 189, 89);
+    background-size: auto;
+    font-size: large;
+    color: white;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 75px;
+    border-radius: 3px;
+}
+
+.footerdiv {
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+}
+
+ul li {
+    margin-top: 10px;
+    margin-left: -20px;
+}
+
+.move_lines {
+    margin-top: 20px;
+}
+
+.space {
+    margin-top: 60px;
+}
+
+.footlink{
+    text-decoration: none;
+    color: rgb(0, 0, 0)
+}
+
+ul{
+    list-style-type: square;
+}
+
+div p{
+    margin-top: 10px;
+}
+
+.infos{
+    margin-top: 20px;
+}
+
+.logos{
+    margin-top: 20px;
+}
+
+
+/*------------------------- COLOR --------------------------------------*/
+
+
+.color_black {
+    color: rgb(0, 0, 0);
+}
