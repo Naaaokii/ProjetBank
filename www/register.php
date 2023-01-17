@@ -3,11 +3,10 @@
 require_once __DIR__ . '/../src/init.php';
 // $db
 // $_SESSION
-
 if(isset($_SESSION['email'])){
     header("location:myaccount.php");
 }
-
+$erremail = $errpassword = $errconfpassword = $mdperrors = $usererrors = $success = "";
 $mdpreq = $confmdpreq = $emailok = 0;
             
             if(ISSET($_POST['reg_user'])){
@@ -68,10 +67,10 @@ $mdpreq = $confmdpreq = $emailok = 0;
                         }
                     }
                     if($mdpreq == 2 && $confmdpreq == 2 && $emailok == 2){
-                        $sth = $dbh->prepare("INSERT INTO user (email, `password`, username, user_creation, last_connection) VALUES (?,?,?,NOW(),NOW())");
-                        $sth->execute([$_POST['email'],hash('sha256', $_POST['password']),$_POST['username']]);
+                        $sth = $dbh->prepare("INSERT INTO users (nom, prenom, email, telephone, date_de_naissance, motdepasse, `role`) VALUES (?,?,?,?,?,?,?)");
+                        $sth->execute([$name, $firstName, $email, $number, $date, hash('sha256', $password), 'DEFAULT']);
                         $success = 'User has been created successfully';
-                        header("Refresh: 2; url=http://localhost:8888/Puissance4/Web/login.php");
+                        header("Refresh: 2; url=http://localhost:8888/login.php");
                     }
                 }   
             }
@@ -83,16 +82,10 @@ $mdpreq = $confmdpreq = $emailok = 0;
             }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ACCUEIL</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="/assets/style/style.css">
-    </head>
+<?php
+    $page_title = 'INSCRIPTION';
+    require_once __DIR__ . '/../src/templates/partials/html_head.php';
+?>
     <body>
         <header>
             <?php
@@ -100,9 +93,14 @@ $mdpreq = $confmdpreq = $emailok = 0;
             ?>
         </header>
         <h1 class='title'>INSCRIPTION</h1>
+        <?php 
+            if(isset($success)){
+                echo '<div class="alert alerts-success">'.$success.'</div>';
+            }
+        ?>
         <section class="register">
             <section class='border_register'>
-                <form method="post" class="user-box">
+                <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="user-box">
                     <div class="zone_register">
                         <input class="integrate_text" type="text" name="name" placeholder="Nom" required>
                     </div>
@@ -111,6 +109,7 @@ $mdpreq = $confmdpreq = $emailok = 0;
                     </div>
                     <div class="zone_register">
                         <input class="integrate_text" type="email" name="email" placeholder="Email" required>
+                        <span class="error"><?php echo $erremail ?></span>
                     </div>
                     <div class="zone_register">
                         <input class="integrate_text" type="tel" name="number" placeholder="Numero de telephone" required>
@@ -120,9 +119,11 @@ $mdpreq = $confmdpreq = $emailok = 0;
                     </div>
                     <div class="zone_register">
                         <input class="integrate_text password" id="pwd" type="password" name="password" placeholder="Mot de passe" >
+                        <span class="error"><?php echo $mdperrors ?></span>
                     </div>
                     <div class="zone_register">
                         <input class="integrate_text" type="password" name="confirm_password" placeholder="Confirmer le mot de passe"  required>
+                        <span class="error"><?php echo $errconfpassword ?></span>
                     </div>
                     <div class="space_register">
                         <input class="button_register" type="submit" name="reg_user" placeholder="Inscription"><a href="login.php" class="connect">Connexion</a>

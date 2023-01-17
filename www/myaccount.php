@@ -7,7 +7,7 @@ require_once __DIR__ . '/../src/init.php';
 ?>
 
 <?php
-    $page_title = 'CONVERTISSEUR';
+    $page_title = 'MON ESPACE';
     require_once __DIR__ . '/../src/templates/partials/html_head.php';
 ?>
     <body>
@@ -16,7 +16,7 @@ require_once __DIR__ . '/../src/init.php';
             require_once __DIR__ . '/../src/templates/partials/header.php';
             ?>
         </header>
-        <h1 class='title'>Convertisseur</h1>
+        <h1 class='title'>Mon compte</h1>
         <footer class='footer'>
             <?php 
                 require_once __DIR__ . '/../src/templates/partials/footer.php'; 
