@@ -27,10 +27,19 @@ require_once __DIR__ . '/../src/init.php';
             <section class='border_register'>
                 <form method="post" class="user-box">
                     <div class="zone_register">
+                        <input class="integrate_text" type="text" name="nom" placeholder="Nom" required>
+                    </div>
+                    <div class="zone_register">
+                        <input class="integrate_text" type="text" name="prenom" placeholder="Prenom" required>
+                    </div>
+                    <div class="zone_register">
                         <input class="integrate_text" type="email" name="email" placeholder="Email" required>
                     </div>
                     <div class="zone_register">
-                        <input class="integrate_text" type="text" name="username" placeholder="Pseudo" required>
+                        <input class="integrate_text" type="tel" name="numero" placeholder="Numero de telephone" required>
+                    </div>
+                    <div class="zone_register">
+                        <input class="integrate_text" type="date" name="date" placeholder="Date de naissance" required>
                     </div>
                     <div class="zone_register">
                         <input class="integrate_text password" id="pwd" type="password" name="password" placeholder="Mot de passe" >
