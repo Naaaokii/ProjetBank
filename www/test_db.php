@@ -71,16 +71,16 @@ echo '</div><hr>';
 echo '<div><h2>Test update</h2>';
 $updated = $dbManager->update(
     'contactforms',
-    ['id'=> 1, 'fullname' => 'New fullname']
+    ['id'=> 1, 'fullname' => 'New fullname', 'phone' => '9999999999']
 );
 
 echo '</div><hr>';
 
 // TEST update advanced
 echo '<div><h2>Test update</h2>';
-$laForm = $dbManager->getById('contactforms', 1, 'ContactForm');
-$laForm->fullname = 'New fullname ??';
-$dbManager->update_advanced($laForm);
+//$laForm = $dbManager->getById('contactforms', 1, 'ContactForm');
+//$laForm->fullname = 'New fullname ??';
+//$dbManager->update_advanced($laForm);
 
 echo '</div><hr>';
 

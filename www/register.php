@@ -22,7 +22,7 @@ require_once __DIR__ . '/../src/init.php';
             require_once __DIR__ . '/../src/templates/partials/header.php';
             ?>
         </header>
-        <h1 class='title_register'>INSCRIPTION</h1>
+        <h1 class='title'>INSCRIPTION</h1>
         <section class="register">
             <section class='border_register'>
                 <form method="post" class="user-box">
