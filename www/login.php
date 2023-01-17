@@ -33,24 +33,14 @@ require_once __DIR__ . '/../src/init.php';
                     </div>
                     <form method="post">
                             <div>
-                                <input class="zone" type="email" 
-                                    name="email" 
-                                    id="email" 
-                                    placeholder="Email" required>
+                                <input class="zone" type="email"  name="email"  id="email"  placeholder="Email" required>
                             </div>
                             <div>
-                                <input class="zone" type="password" 
-                                    name="password" 
-                                    id="pass" 
-                                    placeholder="Mot de passe"
-                                    autocomplete="current-password"
-                                    minlength="8"
-                                    maxlength="16"
-                                    required>
+                                <input class="zone" type="password"  name="password"  id="pass"  placeholder="Mot de passe" autocomplete="current-password" minlength="8" maxlength="16" required>
                             </div>
                             <a href="#" class="mdp">Mot de passe oublié ?</a>
                             <div class="align">
-                                <a href="dashboard.html" class='button'>Se connecter</a> <a href="#" class="reglink">Inscription</a>
+                                <a href="dashboard.html" class='button'>Se connecter</a> <a href="register.php" class="reglink">Inscription</a>
                             </div>
                     </form>
                 </div>
