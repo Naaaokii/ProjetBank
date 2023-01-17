@@ -1,6 +1,6 @@
 <section>
     <nav class="navbar">
-        <h3>BankADE</h3>
+        <h3 class='titre'>BankADE</h3>
         <div class="divnav">
             <a href="index.php" class="correctlink">ACCUEIL</a>
             <a href="#" class="correctlink">VIREMENTS</a>

@@ -8,6 +8,11 @@
 }
 /*------------------------- HEADER --------------------------------------*/
 
+
+.titre{
+    font-size: 40px;
+}
+
 .navbar {
     display: flex;
     flex-direction: row;
@@ -120,3 +125,203 @@ div p{
 .color_black {
     color: rgb(0, 0, 0);
 }
+
+
+/*------------------------- LOGIN --------------------------------------*/
+
+
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 7%;
+    padding-bottom: 5%;
+}
+
+.zone{
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding-left: 20px;
+    width: 350px;
+    border: rgb(126, 217, 87) solid 1px;
+    background-color: rgb(255, 255, 255);
+    height: 50px;
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(181, 174, 174, 0.901);
+    color: rgb(0, 0, 0);
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 100px;
+    height: 50px;
+    background: rgb(126, 217, 87);
+    border: rgb(126, 217, 87) solid 1px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: white;
+}
+
+.reglink{
+    text-decoration: none;
+    color: rgb(126, 217, 87);
+    margin-left: 10px;
+}
+
+.mdp{
+    text-decoration: none;
+}
+
+.connexion{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 80px;
+}
+
+.block_form{
+    border: rgb(126, 217, 87) solid 2px;
+    border-radius: 5px;
+    height: 500px;
+    width: 450px;
+}
+
+.block_logo{
+    display: flex;
+    align-items: center;
+}
+
+img{
+    height: 504px;
+}
+
+.total{
+    display: flex;
+    flex-direction: column;
+    margin-top: 90px;
+    margin-left: 40px;
+}
+
+form{
+    margin-top: 30px;
+}
+
+form div{
+    margin-top: 20px;
+}
+
+.gotopbtn {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(255, 189, 89);
+    bottom: 40px;
+    right: 50px;
+    opacity: 50%;
+    text-decoration: none;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    font-size: 22px;
+}
+
+
+/*------------------------- REGISTER --------------------------------------*/
+
+
+
+.title_register{
+    display: flex;
+    justify-content: center;
+    font-size: 80px;
+    margin-top: 45px;
+}
+
+.register {
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+}
+
+.border_register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: rgb(126, 217, 87) solid 5px;
+    width: 500px;
+    height: 500px;
+}
+
+form .zone_register {
+    width: 100%;
+    display: flex;
+    min-height: 20px;
+    margin-top: 15px;
+    appearance: none;
+    color: rgba(181, 174, 174, 0.901);
+}
+
+.integrate_text {
+    background: #ffffffc7;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0px 2px 2px 0px rgba(0,0,50,0.25);
+    height: 50px;
+    padding-left: 10px;
+    width: 400px;
+}
+
+.user_box {
+    width: 700px;
+    margin-bottom: 35px;
+    flex-direction: column;
+    margin-top: 85px;
+}
+.zone_register{
+    display: flex;
+    flex-direction: column;
+}
+.space_register{
+    display: flex;
+    flex-direction: row;
+}
+.button_register{
+    width: 100px;
+    height: 50px;
+    background: orange;
+    border: rgba(0, 0, 50, 0.5) solid 1px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: white;
+    margin-top: 10px;
+    padding-left: -20px !important;
+}
+
+.connect{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: orange;
+    margin-left: 10px;
+    margin-top: 24px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/*------------------------- COLOR --------------------------------------*/
+
+.color_orange {
+    color: orange;
+}
+
+.color_gray {
+    color: rgb(168, 167, 167);
+
+}
+
