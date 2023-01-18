@@ -16,7 +16,7 @@ require_once __DIR__ . '/../src/init.php';
             require_once __DIR__ . '/../src/templates/partials/header.php';
             ?>
         </header>
-        <h1 class='title'>DEPOTS</h1>
+        <h1 class='title'>Dépots</h1>
         <footer class='footer'>
             <?php 
                 require_once __DIR__ . '/../src/templates/partials/footer.php'; 

@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `nom` VARCHAR(32) NOT NULL,
@@ -44,12 +45,13 @@ CREATE TABLE `users` (
 -- Structure de la table `comptes`
 --
 
+DROP TABLE IF EXISTS `comptes` ;
 CREATE TABLE `comptes` (
   `id_cmpt` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `numero` VARCHAR(32) NOT NULL UNIQUE,
   `id_user` INT NOT NULL,
   `id_monaie` INT NOT NULL,
-  `solde` DECIMAL(10,4) NOT NULL
+  `solde` DECIMAL(15,5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `comptes`
@@ -63,9 +65,10 @@ ALTER TABLE `comptes`
 -- Structure de la table `monaie`
 --
 
+DROP TABLE IF EXISTS `monaies`;
 CREATE TABLE `monaies` (
   `id_Monaie` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `valeur` DECIMAL(15,4) NOT NULL,
+  `valeur` DECIMAL(15,5) NOT NULL,
   `nom` VARCHAR(32) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -74,12 +77,12 @@ CREATE TABLE `monaies` (
 --
 -- Structure de la table `depots`
 --
-
+DROP TABLE IF EXISTS `depots`;
 CREATE TABLE `depots` (
   `id_depot` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `id_compte` INT NOT NULL,
   `id_monaie` INT NOT NULL,
-  `montant` DECIMAL(10,4) NOT NULL,
+  `montant` DECIMAL(15,5) NOT NULL,
   `verif` TINYINT(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -92,6 +95,7 @@ ALTER TABLE `depots`
 -- Structure de la table `retraits`
 --
 
+DROP TABLE IF EXISTS `retraits`;
 CREATE TABLE `retraits` (
   `id_retrait` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `id_compte` INT NOT NULL,
@@ -110,11 +114,11 @@ ALTER TABLE `retraits`
 --
 -- Structure de la table `transaction`
 --
-
+DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
   `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `id_compte` INT NOT NULL,
-  `montant` DECIMAL(15,4) NOT NULL,
+  `montant` DECIMAL(15,5) NOT NULL,
   `id_monaie` INT NOT NULL,
   `date` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
