@@ -26,7 +26,7 @@ if(isset($_POST['virement'])){
         $userId = $user['id_user'];
 
         // Si le numero de compte de l'expediteur est bien celui de la personne connecté
-        if ($idUser = $userId){
+        if ($idUser == $userId){
 
             // Récupérer la solde actuelle de l'expediteur
             $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero1');
@@ -39,27 +39,27 @@ if(isset($_POST['virement'])){
             $sth->execute(array('numero2' => $numberDestinataire));
             $soldeAccountDestinataire = $sth->fetch();
             $soldeActuelleDestinataire = $soldeAccountDestinataire['solde'];
+
+            if ($soldeActuelleExpediteur >= $soldeDepot){
+
+                // Nouvelle solde expediteur après avoir retiré la somme
+                $soldeTotalExpediteur = $soldeActuelleExpediteur - $soldeDepot;
+             
+                $req = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberExpediteur);
+                $req->execute(['solde' => $soldeTotalExpediteur]);
+    
+    
+                // Nouvelle solde destinataire après avoir ajouté la somme
+                $soldeTotalDestinataire = $soldeActuelleDestinataire + $soldeDepot;
+    
+                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberDestinataire);
+                $sth->execute(['solde' => $soldeTotalDestinataire]);
+            }else{
+                echo "T'as pas assez de thunes loser";
+            }  
         }else{
             echo 'Votre numéro de compte est invalide';
-        }
-
-        if ($soldeActuelleExpediteur >= $soldeDepot){
-
-            // Nouvelle solde expediteur après avoir retiré la somme
-            $soldeTotalExpediteur = $soldeActuelleExpediteur - $soldeDepot;
-         
-            $req = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberExpediteur);
-            $req->execute(['solde' => $soldeTotalExpediteur]);
-
-
-            // Nouvelle solde destinataire après avoir ajouté la somme
-            $soldeTotalDestinataire = $soldeActuelleDestinataire + $soldeDepot;
-
-            $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberDestinataire);
-            $sth->execute(['solde' => $soldeTotalDestinataire]);
-        }else{
-            echo "T'as pas assez de thunes loser";
-        }    
+        }  
     }
 }
 ?>

@@ -10,15 +10,34 @@ if(isset($_POST['depot'])){
         $numberAccount = $_POST['numberaccount'];
         $soldeDepot = $_POST['solde'];
 
-        $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero');
-        $req->execute(array('numero' => $numberAccount));
-        $soldeAccount = $req->fetch();
-        $soldeActuelle = $soldeAccount['solde'];
+        // Récupérer l'id de l'utilisateur connecté
+        $mail = $_SESSION['email'];
+        $req = $dbh->prepare('SELECT id FROM users WHERE email = :email');
+        $req->execute(array('email' => $mail));
+        $user = $req->fetch();
+        $idUser = $user['id'];
 
-        $soldeTotal = $soldeActuelle + $soldeDepot;
-         
-        $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberAccount);
-        $sth->execute(['solde' => $soldeTotal]);
+        // Récupérer l'id_user par rapport au compte
+        $sth = $dbh->prepare('SELECT id_user FROM comptes WHERE numero = :numero0');
+        $sth->execute(array('numero0' => $numberAccount));
+        $user = $sth->fetch();
+        $userId = $user['id_user'];
+
+        // Si le numero de compte de l'expediteur est bien celui de la personne connecté
+        if ($idUser == $userId){
+
+            $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero');
+            $req->execute(array('numero' => $numberAccount));
+            $soldeAccount = $req->fetch();
+            $soldeActuelle = $soldeAccount['solde'];
+
+            $soldeTotal = $soldeActuelle + $soldeDepot;
+            
+            $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberAccount);
+            $sth->execute(['solde' => $soldeTotal]);
+        }else{
+            echo 'Numéro de compte invalide';
+        }
     }
 }
 ?>
