@@ -327,4 +327,9 @@ form .zone_register {
     color: rgb(168, 167, 167);
 
 }
+.divgestion{
+    display:flex;
+    flex-direction: row;
+    max-width: 400px;
+}
 
