@@ -35,7 +35,7 @@ CREATE TABLE `users` (
   `telephone` VARCHAR(32) NOT NULL UNIQUE,
   `date_de_naissance` DATE NOT NULL,
   `motdepasse` VARCHAR(100) NOT NULL,
-  `role` VARCHAR(15) NOT NULL DEFAULT `unverified`
+  `role` VARCHAR(15) NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
