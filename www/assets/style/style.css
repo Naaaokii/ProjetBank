@@ -6,6 +6,10 @@
 .error-alert {
     background-color: red;
 }
+
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 /*------------------------- HEADER --------------------------------------*/
 
 
@@ -20,7 +24,6 @@
     justify-content: space-around;
     background-color: rgb(126, 217, 87);
     color: white;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     height: 80px;
 }
 
@@ -253,7 +256,7 @@ form div{
     align-items: center;
     border: rgb(126, 217, 87) solid 5px;
     width: 500px;
-    height: 500px;
+    height: 600px;
 }
 
 form .zone_register {
