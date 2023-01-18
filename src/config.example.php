@@ -3,7 +3,7 @@
 $config = ['db' => [
     'host' => 'localhost',
     'name' => 'bankADE',
-    'port' => 3306,
+    'port' => 8888,
     'user' => 'root',
     'pass' => ''
 ]];
