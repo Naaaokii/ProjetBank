@@ -7,30 +7,52 @@ require_once __DIR__ . '/../src/init.php';
 if(isset($_POST['virement'])){
     if(isset($_POST['accountexpediteur'], $_POST['accountdestinataire'], $_POST['solde']) 
     && !empty($_POST['accountexpediteur']) && !empty($_POST['accountdestinataire']) && !empty($_POST['solde'])){
-        
+
         $numberExpediteur = $_POST['accountexpediteur'];
         $numberDestinataire = $_POST['accountdestinataire'];
         $soldeDepot = $_POST['solde'];
-
-        $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero1');
-        $req->execute(array('numero1' => $numberExpediteur));
-        $soldeAccountExpediteur = $req->fetch();
-        $soldeActuelleExpediteur = $soldeAccountExpediteur['solde'];
-
         
-        $sth = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero2');
-        $sth->execute(array('numero2' => $numberDestinataire));
-        $soldeAccountDestinataire = $sth->fetch();
-        $soldeActuelleDestinataire = $soldeAccountDestinataire['solde'];
+        // Récupérer l'id de l'utilisateur connecté
+        $mail = $_SESSION['email'];
+        $req = $dbh->prepare('SELECT id FROM users WHERE email = :email');
+        $req->execute(array('email' => $mail));
+        $user = $req->fetch();
+        $idUser = $user['id'];
+
+        // Récupérer l'id_user par rapport au compte
+        $sth = $dbh->prepare('SELECT id_user FROM comptes WHERE numero = :numero0');
+        $sth->execute(array('numero0' => $numberExpediteur));
+        $user = $sth->fetch();
+        $userId = $user['id_user'];
+
+        // Si le numero de compte de l'expediteur est bien celui de la personne connecté
+        if ($idUser = $userId){
+
+            // Récupérer la solde actuelle de l'expediteur
+            $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero1');
+            $req->execute(array('numero1' => $numberExpediteur));
+            $soldeAccountExpediteur = $req->fetch();
+            $soldeActuelleExpediteur = $soldeAccountExpediteur['solde'];
+
+            // Récupérer la solde actuelle du destinataire
+            $sth = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero2');
+            $sth->execute(array('numero2' => $numberDestinataire));
+            $soldeAccountDestinataire = $sth->fetch();
+            $soldeActuelleDestinataire = $soldeAccountDestinataire['solde'];
+        }else{
+            echo 'Votre numéro de compte est invalide';
+        }
 
         if ($soldeActuelleExpediteur >= $soldeDepot){
+
+            // Nouvelle solde expediteur après avoir retiré la somme
             $soldeTotalExpediteur = $soldeActuelleExpediteur - $soldeDepot;
          
             $req = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberExpediteur);
             $req->execute(['solde' => $soldeTotalExpediteur]);
 
 
-
+            // Nouvelle solde destinataire après avoir ajouté la somme
             $soldeTotalDestinataire = $soldeActuelleDestinataire + $soldeDepot;
 
             $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberDestinataire);
