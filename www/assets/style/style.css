@@ -173,17 +173,22 @@ div p{
 }
 
 .solde{
-    width: 195px;
+    width: 215px;
     margin-left: 620px;
 }
 
 .numberaccount{
-    width: 195px;
+    width: 215px;
     margin-left: 620px;
 }
 
+.buttonvirement{
+    width: 120px;
+    margin-left: 670px;
+}
+
 .buttondaccount{
-    width: 100px;
+    width: 120px;
     margin-left: 670px;
 }
 
