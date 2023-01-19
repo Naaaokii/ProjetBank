@@ -21,8 +21,19 @@ if(ISSET($_POST['deconnexion'])){
             ?>
         </header>
         <h1 class='title'>Mon compte</h1>
+        <?php
+        var_dump($_SESSION);
+        $user_mail = $_SESSION['email'];
+        $query = $dbh->prepare("SELECT * FROM users WHERE email = ?");
+        $query->excute($user_mail);
+        $user = $query->fetch();
         
-
+        echo "<div>";
+        foreach ($user as $key => $value) {
+            echo "<p>".$value."</p>";
+        }
+        echo "</div>";
+        ?>
         <form method="post">
             <input class='button' type="submit" value="Deconnexion" name="deconnexion" class="outbutton"> 
         </form>
