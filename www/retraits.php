@@ -4,7 +4,7 @@ require_once __DIR__ . '/../src/init.php';
 // $db
 // $_SESSION
 
-if(isset($_POST['depot'])){
+if(isset($_POST['retrait'])){
     if(isset($_POST['numberaccount'], $_POST['solde']) && !empty($_POST['numberaccount']) && !empty($_POST['solde'])){
         
         $numberAccount = $_POST['numberaccount'];
@@ -26,15 +26,27 @@ if(isset($_POST['depot'])){
         // Si le numero de compte de l'expediteur est bien celui de la personne connecté
         if ($idUser == $userId){
 
-            $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero');
+            $req = $dbh->prepare('SELECT solde, id_monaie FROM comptes WHERE numero = :numero');
             $req->execute(array('numero' => $numberAccount));
-            $soldeAccount = $req->fetch();
-            $soldeActuelle = $soldeAccount['solde'];
+            $monaieId = $req->fetch();
+            $soldeActuelle = $monaieId['solde'];
+            $idMonaie = $monaieId['id_monaie'];
 
-            $soldeTotal = $soldeActuelle + $soldeDepot;
+            $sth = $dbh->prepare('SELECT nom FROM monaies WHERE id_monaie = :id_monaie');
+            $sth->execute(array('id_monaie' => $idMonaie));
+            $monaie = $sth->fetch();
+            $nomMonaie = $monaie['nom'];
+
+            if ($soldeActuelle > $soldeDepot){
+                $soldeTotal = $soldeActuelle - $soldeDepot;
             
-            $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberAccount);
-            $sth->execute(['solde' => $soldeTotal]);
+                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberAccount);
+                $sth->execute(['solde' => $soldeTotal]);
+
+                echo "Vous avez bien retiré ".$soldeDepot." ".$nomMonaie.", il vous reste ".$soldeTotal." ".$nomMonaie;
+            }else{
+                echo "T'as pas assez de thunes loser";
+            }  
         }else{
             echo 'Numéro de compte invalide';
         }
@@ -43,7 +55,7 @@ if(isset($_POST['depot'])){
 ?>
 
 <?php
-    $page_title = 'DEPOTS';
+    $page_title = 'RETRAITS';
     require_once __DIR__ . '/../src/templates/partials/html_head.php';
 ?>
     <body>
@@ -52,13 +64,13 @@ if(isset($_POST['depot'])){
             require_once __DIR__ . '/../src/templates/partials/header.php';
             ?>
         </header>
-        <h1 class='title'>DEPOTS</h1>
+        <h1 class='title'>RETRAITS</h1>
         <div class="createaccount">
-            <h2 class='titlecreateaccount'>Faire un dépot</h2>
+            <h2 class='titlecreateaccount'>Retirer de l'argent</h2>
             <form method="post">
                 <input class="numberaccount" type="number"  name="numberaccount"  id="numberaccount"  placeholder="Numéro du compte" required>
                 <input class="solde" type="number"  name="solde"  id="solde"  placeholder="Solde" required>
-                <input class='buttondaccount' type="submit" value="Déposer" name="depot" class="inpbutton">
+                <input class='buttondaccount' type="submit" value="Retirer" name="retrait" class="inpbutton">
             </form>
         </div>
         <footer class='footer'>
