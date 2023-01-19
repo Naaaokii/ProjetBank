@@ -68,7 +68,7 @@ $mdpreq = $confmdpreq = $emailok = 0;
                     }
                     if($mdpreq == 2 && $confmdpreq == 2 && $emailok == 2){
                         $sth = $dbh->prepare("INSERT INTO users (nom, prenom, email, telephone, date_de_naissance, motdepasse, `role`) VALUES (?,?,?,?,?,?,?)");
-                        $sth->execute([$name, $firstName, $email, $number, $date, hash('sha256', $password), 'unverified']);
+                        $sth->execute([strtoupper($name), ucfirst(strtolower($firstName)), strtolower($email), $number, $date, hash('sha256', $password), 'unverified']);
                         $success = 'User has been created successfully';
                         header("Refresh: 2; url=http://localhost:8888/login.php");
                     }
