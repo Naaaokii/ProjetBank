@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 
 CREATE TABLE `users` (
-  `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `ID` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `nom` VARCHAR(32) NOT NULL,
   `prenom` VARCHAR(32) NOT NULL,
   `email` VARCHAR(40) NOT NULL UNIQUE,
@@ -47,26 +47,26 @@ CREATE TABLE `users` (
 
 
 CREATE TABLE `comptes` (
-  `id_cmpt` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id_Cmpt` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `numero` VARCHAR(32) NOT NULL UNIQUE,
   `id_user` INT NOT NULL,
-  `id_monaie` INT NOT NULL,
+  `id_monnaie` INT NOT NULL,
   `solde` DECIMAL(15,5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `comptes`
   ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_monaie` (`id_monaie`);
+  ADD KEY `id_monnaie` (`id_monnaie`);
   
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `monaie`
+-- Structure de la table `monnaies`
 --
 
-CREATE TABLE `monaies` (
-  `id_Monaie` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE `monnaies` (
+  `id_Monnaie` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `valeur` DECIMAL(15,5) NOT NULL,
   `nom` VARCHAR(32) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -80,14 +80,14 @@ CREATE TABLE `monaies` (
 CREATE TABLE `depots` (
   `id_depot` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `id_compte` INT NOT NULL,
-  `id_monaie` INT NOT NULL,
+  `id_monnaie` INT NOT NULL,
   `montant` DECIMAL(15,5) NOT NULL,
   `verif` TINYINT(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `depots`
   ADD KEY `id_compte` (`id_compte`),
-  ADD KEY `id_monaie` (`id_monaie`);
+  ADD KEY `id_monnaie` (`id_monnaie`);
 
 -- --------------------------------------------------------
 --
@@ -98,14 +98,14 @@ ALTER TABLE `depots`
 CREATE TABLE `retraits` (
   `id_retrait` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `id_compte` INT NOT NULL,
-  `id_monaie` INT NOT NULL,
+  `id_monnaie` INT NOT NULL,
   `montant` DECIMAL NOT NULL,
   `verif` TINYINT(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `retraits`
   ADD KEY `id_compte` (`id_compte`),
-  ADD KEY `id_monaie` (`id_monaie`);
+  ADD KEY `id_monnaie` (`id_monnaie`);
 
 
 -- --------------------------------------------------------
@@ -118,13 +118,13 @@ CREATE TABLE `transactions` (
   `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `id_compte` INT NOT NULL,
   `montant` DECIMAL(15,5) NOT NULL,
-  `id_monaie` INT NOT NULL,
+  `id_monnaie` INT NOT NULL,
   `date` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `transactions`
   ADD KEY `id_compte` (`id_compte`),
-  ADD KEY `id_monaie` (`id_monaie`);
+  ADD KEY `id_monnaie` (`id_monnaie`);
 
 
 -- --------------------------------------------------------
@@ -132,20 +132,20 @@ ALTER TABLE `transactions`
 
 
 ALTER TABLE `retraits`
-  ADD CONSTRAINT `retraits_ibfk_1` FOREIGN KEY (`id_compte`) REFERENCES `comptes` (`id_cmpt`),
-  ADD CONSTRAINT `retraits_ibfk_2` FOREIGN KEY (`id_monaie`) REFERENCES `monaies` (`id_Monaie`);
+  ADD CONSTRAINT `retraits_ibfk_1` FOREIGN KEY (`id_compte`) REFERENCES `comptes` (`id_Cmpt`),
+  ADD CONSTRAINT `retraits_ibfk_2` FOREIGN KEY (`id_monnaie`) REFERENCES `monnaies` (`id_Monnaie`);
 
 ALTER TABLE `comptes`
-  ADD CONSTRAINT `comptes_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `comptes_ibfk_2` FOREIGN KEY (`id_monaie`) REFERENCES `monaies` (`id_Monaie`);
+  ADD CONSTRAINT `comptes_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`ID`),
+  ADD CONSTRAINT `comptes_ibfk_2` FOREIGN KEY (`id_monnaie`) REFERENCES `monnaies` (`id_Monnaie`);
 
 ALTER TABLE `transactions`
-  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`id_compte`) REFERENCES `comptes` (`id_cmpt`),
-  ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`id_monaie`) REFERENCES `monaies` (`id_Monaie`);
+  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`id_compte`) REFERENCES `comptes` (`id_Cmpt`),
+  ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`id_monnaie`) REFERENCES `monnaies` (`id_Monnaie`);
 
 ALTER TABLE `depots`
-  ADD CONSTRAINT `depots_ibfk_1` FOREIGN KEY (`id_compte`) REFERENCES `comptes` (`id_cmpt`),
-  ADD CONSTRAINT `depots_ibfk_2` FOREIGN KEY (`id_monaie`) REFERENCES `monaies` (`id_Monaie`);
+  ADD CONSTRAINT `depots_ibfk_1` FOREIGN KEY (`id_compte`) REFERENCES `comptes` (`id_Cmpt`),
+  ADD CONSTRAINT `depots_ibfk_2` FOREIGN KEY (`id_monnaie`) REFERENCES `monnaies` (`id_Monnaie`);
 
 COMMIT;
 

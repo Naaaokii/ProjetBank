@@ -384,6 +384,7 @@ form .zone_register {
 .divgestion{
     display:flex;
     flex-direction: row;
-    max-width: 400px;
+    max-width: 500px;
+    margin-right:50px;
 }
 
