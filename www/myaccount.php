@@ -24,9 +24,9 @@ if(ISSET($_POST['deconnexion'])){
         <?php
         var_dump($_SESSION);
         $user_mail = $_SESSION['email'];
-        $query = $dbh->prepare("SELECT * FROM users WHERE email = ?");
-        $query->excute($user_mail);
-        $user = $query->fetch();
+        $req = $dbh->prepare('SELECT * FROM users WHERE email = :email');
+        $req->execute(array('email' => $user_mail));
+        $user = $req->fetch();
         
         echo "<div>";
         foreach ($user as $key => $value) {
