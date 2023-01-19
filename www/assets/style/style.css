@@ -426,3 +426,14 @@ input[type="radio"].optioncheck{
     height : 30px;
 }
 
+#submitfiltre{
+    width : 100px;
+    height : 30px;
+    border-style: solid;
+    background-color : white;
+    border-color : black;
+    margin-top : 15px;
+    margin-left : 20px;
+    margin-bottom : 15px;
+}
+

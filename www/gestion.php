@@ -20,7 +20,7 @@
             <input type="radio" class="optioncheck" name="filtre" value="WHERE role = 'banned'"/>les bannis</input>
             <input type="radio" class="optioncheck" name="filtre" value="WHERE role = 'verified'"/>les verifiés</input>
             </br>
-            <input type="submit" value="filtrer" name="submit">
+            <input type="submit" value="filtrer" name="submit" id="submitfiltre">
         </form>
 
         
@@ -54,7 +54,6 @@
             }
         }
         ?>
-
         <form method="post">
             <input class='button' type="submit" value="Deconnexion" name="deconnexion" class="outbutton"> 
         </form>

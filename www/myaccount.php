@@ -21,6 +21,8 @@ if(ISSET($_POST['deconnexion'])){
             ?>
         </header>
         <h1 class='title'>Mon compte</h1>
+        
+
         <form method="post">
             <input class='button' type="submit" value="Deconnexion" name="deconnexion" class="outbutton"> 
         </form>
