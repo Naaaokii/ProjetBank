@@ -25,6 +25,14 @@ if(isset($_SESSION['email'])){
                 $user_id = ('SELECT id FROM user WHERE email= $email');
                 $_SESSION["email"] = $email;
                 $_SESSION["password"] = $hpass;
+
+                // $user_info = $dbh->prepare('SELECT nom,prenom,email,telephone,date_de_naissance,role FROM users WHERE email = ?');
+                // $user_info->execute($email);
+                // $resultat = $req->fetch();
+                // var_dump($resultat);
+                // foreach($resultat as $key => $val){
+                //     $_SESSION[$key] = $val;
+                // }
                 header("location:index.php");
             }
         }
