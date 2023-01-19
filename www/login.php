@@ -48,7 +48,7 @@ if(isset($_SESSION['email'])){
             <section class="block_form">
                 <div class="total">
                     <div>
-                        <h2>Se connecter à son compte</h2>
+                        <h2>Se connecter à son compte utilisateur</h2>
                     </div>
                     <?php
                         if(isset($emptyfield)){

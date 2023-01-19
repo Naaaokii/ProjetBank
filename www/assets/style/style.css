@@ -389,6 +389,51 @@ form .zone_register {
 
 .color_gray {
     color: rgb(168, 167, 167);
+}
 
+/*------------------------- PAGE DE GESTION.php --------------------------------------*/
+
+#choixfiltre{
+    justify-content: center;
+    text-align : center;
+}
+input[type="radio"].optioncheck{
+    flex-direction : row;
+    justify-content:center;
+    margin-left: 20px;
+}
+#tabgestion {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+#tabgestion td, #tabgestion th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#tabgestion th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #3df161;
+    color: white;
+}
+#tabgestion tr:nth-child(even){background-color: lightgray;
+}
+.btngest{
+    background-color : white;
+    width : 150px;
+    height : 30px;
+}
+
+#submitfiltre{
+    width : 100px;
+    height : 30px;
+    border-style: solid;
+    background-color : white;
+    border-color : black;
+    margin-top : 15px;
+    margin-left : 20px;
+    margin-bottom : 15px;
 }
 
