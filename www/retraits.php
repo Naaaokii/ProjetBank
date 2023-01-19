@@ -44,7 +44,9 @@ if(isset($_POST['retrait'])){
                 $sth->execute(['solde' => $soldeTotal]);
 
                 echo "Vous avez bien retiré ".$soldeDepot." ".$nomMonaie.", il vous reste ".$soldeTotal." ".$nomMonaie;
-            }
+            }else{
+                echo "T'as pas assez de thunes loser";
+            }  
         }else{
             echo 'Numéro de compte invalide';
         }
