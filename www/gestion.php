@@ -38,7 +38,6 @@
                         throw new Exception("Aucun résultat trouvé avec les filtres sélectionnés.");
                     }
                     echo "<tr><th>Id</th><th>Nom</th><th>Prenom</th><th>Email</th><th>Role</th><th>Gérer</th></tr>";
-                    $ct = 1;
                     foreach ($data as $key => $value) {
                         $subkey = $value;
                         echo "<tr>";
