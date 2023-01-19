@@ -15,20 +15,21 @@
         <h1 class='title'>Gestion</h1>
         <?php
         echo "<h2>Select du désespoir</h2>";
-            echo "<table id='tableau'><tbody>";
-            $variable = $dbh->prepare('SELECT id,nom,prenom,email FROM users WHERE role = ?');
+            echo "<table id='tabgestion'>";
+            $variable = $dbh->prepare('SELECT id,nom,prenom,email FROM users');
             $variable->execute();
             $data = $variable->fetchAll(PDO::FETCH_ASSOC);
-
+            echo "<tr><th>Id</th><th>Nom</th><th>Prenom</th><th>Email</th></tr>";
+            echo "<tr>".var_dump($data)."</tr>";
             foreach($data as $key => $value){
                 $subkey = $value;
-                echo "<div>";
+                echo "<tr>";
                 foreach($subkey as $key2 => $attri){
-                        echo "<p>".$key2."\n_____". $attri."</p>";
+                        echo "<td>". $attri."</td>";
                 }
-                echo "</div>";
+                echo "</tr>";
             }
-            echo '</div><hr>';
+            echo '</table>';
 
         ?>
         <form method="post">

@@ -381,10 +381,20 @@ form .zone_register {
     color: rgb(168, 167, 167);
 
 }
-.divgestion{
-    display:flex;
-    flex-direction: row;
-    max-width: 500px;
-    margin-right:50px;
+#tabgestion {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+#tabgestio td, #tabgestion th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#tabgestion th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
 }
 
