@@ -78,11 +78,12 @@ CREATE TABLE `monnaies` (
 --
 
 CREATE TABLE `depots` (
-  `id_depot` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `id_compte` INT NOT NULL,
-  `id_monnaie` INT NOT NULL,
-  `montant` DECIMAL(15,5) NOT NULL,
-  `verif` TINYINT(1) NOT NULL DEFAULT '0'
+  `id_depot` int(11) NOT NULL,
+  `id_compte` int(11) NOT NULL,
+  `id_monaie` int(11) NOT NULL,
+  `montant` decimal(10,4) NOT NULL,
+  `verif` varchar(255) NOT NULL DEFAULT 'unverified',
+  `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `depots`
@@ -100,7 +101,8 @@ CREATE TABLE `retraits` (
   `id_compte` INT NOT NULL,
   `id_monnaie` INT NOT NULL,
   `montant` DECIMAL NOT NULL,
-  `verif` TINYINT(1) NOT NULL DEFAULT '0'
+  `verif` varchar(255) NOT NULL DEFAULT 'unverified'
+  `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `retraits`

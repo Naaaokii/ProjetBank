@@ -79,6 +79,11 @@
                         $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
                         $sqladmin->execute(array("email" => $email));
                         $role = $sqladmin->fetchAll();
+
+                        $req = $dbh->prepare('SELECT montant FROM depots WHERE id_user = :id_user AND verif = :verif');
+                        $req->execute(array("id_user" => $value['id'], "verif" => 'unverified'));
+                        $montant = $req->fetch();
+
                         $cpt = 0;
                         foreach($role as $key => $qui){
                             if($qui['role'] !== "admin" ){
@@ -93,11 +98,21 @@
                                 <option value="verifier">Vérifier</option>
                                 <option value="manager">Manager</option>
                                 <option value="admin">Admin</option>
-                            </select>
-                            <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
-                            <input class="buttonGestion" type="submit" value="Valider" name="valideruser" class="inpbutton">
-                        </form>
-                        </td></tr>';
+                                </select>
+                                <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
+                                <input class="buttonGestion" type="submit" value="Valider" name="valideruser" class="inpbutton">
+                            </form>
+                            </td></tr>';
+
+                            if ($montant != false){
+                                echo '<td ><p>Demande de dépôt de '.$montant['montant'].'
+                                    <form method="post" class="formGestion">
+                                    <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
+                                    <input class="depothid" type="hidden" value="'.$montant['montant'].'" name="depothid">
+                                    <input class="buttonGestion" type="submit" value="Valider" name="validerdepot" class="inpbutton">
+                                </form>
+                                </td></tr>';
+                            }
                         }else{
                             echo '<td ><form method="post" class="formGestion">
                             <select name="gerer" id="gererUsers">
@@ -105,11 +120,21 @@
                                 <option value="banned">Bannir</option>
                                 <option value="verified">Vérifier</option>
                                 <option value="manager">Manager</option>
-                            </select>
-                            <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
-                            <input class="buttonGestion" type="submit" value="Valider" name="valideruser" class="inpbutton">
-                        </form>
-                        </td></tr>';
+                                </select>
+                                <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
+                                <input class="buttonGestion" type="submit" value="Valider" name="valideruser" class="inpbutton">
+                            </form>
+                            </td></tr>';
+
+                            if ($montant != false){
+                                echo '<td ><p>Demande de dépôt de '.$montant['montant'].'
+                                    <form method="post" class="formGestion">
+                                    <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
+                                    <input class="depothid" type="hidden" value="'.$montant['montant'].'" name="depothid">
+                                    <input class="buttonGestion" type="submit" value="Valider" name="validerdepot" class="inpbutton">
+                                </form>
+                                </td></tr>';
+                            }
                         }
                     }
                     echo '</table>';
@@ -126,6 +151,29 @@
                 
                 $sth = $dbh->prepare("UPDATE users SET role = :role WHERE id = :id");
                 $sth->execute(['id' => $idUser,'role' => $roleuser]);
+            }
+        }
+
+        if(isset($_POST['validerdepot'])){
+            if(isset($_POST['depothid'], $_POST['userhid'])){
+                $idUser = $_POST['userhid'];
+                $montantDepot = $_POST['depothid'];
+                $sth = $dbh->prepare("SELECT id_compte FROM depots WHERE id_user = :id_user");
+                $sth->execute(['id_user' => $idUser]);
+                $idCompte = $sth->fetch();
+
+                $req = $dbh->prepare('SELECT solde FROM comptes WHERE id_cmpt = :id_cmpt');
+                $req->execute(array('id_cmpt' => $idCompte['id_compte']));
+                $soldeAccount = $req->fetch();
+                $soldeActuelle = $soldeAccount['solde'];
+
+                $soldeTotal = $soldeActuelle + $montantDepot;
+                
+                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE id_cmpt = :id_cmpt");
+                $sth->execute(['solde' => $soldeTotal,'id_cmpt' => $idCompte['id_compte']]);
+
+                $req = $dbh->prepare("UPDATE depots SET verif = :verif WHERE id_user = :id_user AND verif = :verif2");
+                $req->execute(['verif' => 'verified','id_user' => $idUser, 'verif2' => 'unverified']);
             }
         }
         ?>

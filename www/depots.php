@@ -47,23 +47,19 @@ if(isset($_POST['depot'])){
         $idUser = $user['id'];
 
         // Récupérer l'id_user par rapport au compte
-        $sth = $dbh->prepare('SELECT id_user FROM comptes WHERE numero = :numero0');
+        $sth = $dbh->prepare('SELECT id_cmpt, id_user, id_monaie FROM comptes WHERE numero = :numero0');
         $sth->execute(array('numero0' => $numberAccount));
         $user = $sth->fetch();
         $userId = $user['id_user'];
+        $monaieId = $user['id_monaie'];
+        $compteId = $user['id_cmpt'];
 
         // Si le numero de compte de l'expediteur est bien celui de la personne connecté
         if ($idUser == $userId){
 
-            $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero');
-            $req->execute(array('numero' => $numberAccount));
-            $soldeAccount = $req->fetch();
-            $soldeActuelle = $soldeAccount['solde'];
+            $req = $dbh->prepare("INSERT INTO depots(id_compte, id_monaie, montant, verif, id_user)  VALUES (?,?,?,?,?)");
+            $req->execute([$compteId, $monaieId, $soldeDepot, 'unverified', $idUser]);
 
-            $soldeTotal = $soldeActuelle + $soldeDepot;
-            
-            $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = :numero");
-            $sth->execute(['solde' => $soldeTotal, 'numero' => $numberAccount]);
         }else{
             echo 'Numéro de compte invalide';
         }
