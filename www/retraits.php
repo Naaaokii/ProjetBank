@@ -81,6 +81,43 @@ if(isset($_POST['retrait'])){
             ?>
         </header>
         <h1 class='title'>RETRAITS</h1>
+        <?php
+        if(!isset($_SESSION['email'])){
+            header("location:login.php");
+        }else{
+            $email = $_SESSION['email'];
+            $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+            $sqladmin->execute(array("email" => $email));
+            $role = $sqladmin->fetch(PDO::FETCH_ASSOC);
+            if(!$role["role"]=="admin"|| !$role["role"]== "manager"){
+                header("location:index.php");
+            }
+        }
+        $email = $_SESSION['email'];
+        $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+        $sqladmin->execute(array("email" => $email));
+        $role = $sqladmin->fetch();
+
+        if ($role['role'] == "admin" || $role['role'] == "moderator") {
+
+            $autregalere = $dbh->prepare('SELECT id_retrait, id_retrait, id_monnaie, montant FROM retraits WHERE verif = 0;');
+            $autregalere->execute();
+            $retraits = $autregalere->fetchAll(PDO::FETCH_ASSOC);
+            echo "<table id='tabdepots'>";
+            echo "<div><tr><th>Id retrait</th><th>id compte</th><th>id monaie </th><th>montant</th><th>verifier?</th><tr></tr>";
+            foreach ($retraits as $key => $value) {
+                $subkey = $value;
+                echo "<tr>";
+                foreach ($subkey as $key2 => $attri) {
+                    echo "<td>" .$attri. "</td>";
+                }
+                echo "</tr>";
+            }
+        echo '</table>';
+        }
+        ?>
+
+
         <div class="createaccount">
             <h2 class='titlecreateaccount'>Retirer de l'argent</h2>
             <form method="post">

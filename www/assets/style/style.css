@@ -476,10 +476,9 @@ input[type="radio"].optioncheck{
     justify-content:center;
     margin-left:35%;
     max-width:400px;
-    height : 310px;
+    height : 200px;
     border: 2px black solid;
     box-shadow : 3px 3px 3px gray;
-    margin-top: 50px;
 }
 .ribinfo{
     flex-direction:column;
@@ -502,18 +501,29 @@ input[type="radio"].optioncheck{
     margin-top: 50px;
 }
 
-.titlebanned{
-    display: flex;
-    justify-content: center;
-    margin-top: 200px;
-    margin-bottom: 200px;
-    font-size: 100px;
-}
 
-.titleattente{
-    display: flex;
-    justify-content: center;
-    margin-top: 200px;
-    margin-bottom: 200px;
-    font-size: 50px;
+/*---------------------------- Depots ------------------------------------*/
+
+#tabdepots {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+#tabdepots td, #tabgestion th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#tabdepots th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #3df161;
+    color: white;
+}
+#tabdepots tr:nth-child(even){background-color: lightgray;
+}
+.btngest{
+    background-color : white;
+    width : 150px;
+    height : 30px;
 }
