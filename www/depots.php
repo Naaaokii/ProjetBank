@@ -25,10 +25,10 @@ if(empty($_SESSION['email'])){
                 foreach ($subkey as $key2 => $attri) {
                     echo "<td>" . $attri . "</td>";
                 }
+            }
         }
     }
 }
-
 if(isset($_POST['depot'])){
     if(isset($_POST['numberaccount'], $_POST['solde']) && !empty($_POST['numberaccount']) && !empty($_POST['solde'])){
         
