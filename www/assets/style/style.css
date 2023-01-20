@@ -123,7 +123,6 @@ div p{
 
 
 
-
 /*------------------------- COLOR --------------------------------------*/
 
 
@@ -154,11 +153,7 @@ div p{
 
 #monnaie{
     margin-left: 720px;
-    margin-left: 720px;
     width: 220px;
-    border-radius: 2px;
-    height: 30px;
-    border-block-color: rgb(126, 217, 87) ;
     border-radius: 2px;
     height: 30px;
     border-block-color: rgb(126, 217, 87) ;
@@ -186,19 +181,10 @@ div p{
     border-radius: 2px;
     height: 30px;
     border-block-color: rgb(126, 217, 87) ;
-    margin-left: 720px;
-    border-radius: 2px;
-    height: 30px;
-    border-block-color: rgb(126, 217, 87) ;
 }
 
 .numberaccount{
     width: 215px;
-    margin-left: 720px;
-    border-radius: 2px;
-    height: 30px;
-    border-block-color: rgb(126, 217, 87)
-
     margin-left: 720px;
     border-radius: 2px;
     height: 30px;
@@ -219,33 +205,9 @@ div p{
     border-radius: 5px;
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
     color: white;
-    display: flex;
-    margin-left: 720px;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    width: 100px;
-    height: 40px;
-    background: rgb(126, 217, 87);
-    border: rgb(126, 217, 87) solid 1px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
-    color: white;
 }
 
 .buttondaccount{
-    display: flex;
-    margin-left: 720px;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    width: 100px;
-    height: 40px;
-    background: rgb(126, 217, 87);
-    border: rgb(126, 217, 87) solid 1px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
-    color: white;
     display: flex;
     margin-left: 720px;
     align-items: center;
@@ -293,14 +255,12 @@ div p{
     justify-content: center;
     text-decoration: none;
     width: 150px;
-    width: 150px;
     height: 50px;
-    background: rgb(199, 34, 34);
+    background: rgb(60, 209, 49);
     border: rgb(199, 34, 34) solid 1px;
     border-radius: 5px;
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
     color: white;
-    margin-left: 780px;
     margin-left: 780px;
 }
 
@@ -433,7 +393,6 @@ form .zone_register {
 .button_register{
     width: 100px;
     height: 40px;
-    height: 40px;
     background: orange;
     border: rgba(0, 0, 50, 0.5) solid 1px;
     border-radius: 5px;
@@ -509,6 +468,24 @@ input[type="radio"].optioncheck{
     margin-bottom : 15px;
 }
 
+/*---------------------------- Myaccount ------------------------------------*/
+
+.rib{
+    display:flex;
+    flex-direction : column;
+    justify-content:center;
+    margin-left:35%;
+    max-width:400px;
+    height : 310px;
+    border: 2px black solid;
+    box-shadow : 3px 3px 3px gray;
+    margin-top: 50px;
+}
+.ribinfo{
+    flex-direction:column;
+    margin-left:20px;
+    margin-bottom:10px;
+}
 #gererUsers{
     border-radius: 5px;
 }
@@ -521,22 +498,22 @@ input[type="radio"].optioncheck{
     width: 50px
 }
 
-.validerall{
-    margin-left: 1250px;
-    border: none;
-    text-decoration: none;
-    width: 100px;
-    height: 30px;
-    background: rgb(126, 217, 87);
-    border: rgb(126, 217, 87) solid 1px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
-    color: white;
+#decobutton{
+    margin-top: 50px;
 }
 
-#decobutton{
-    margin-top: 50px;
+.titlebanned{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    font-size: 100px;
 }
-#decobutton{
-    margin-top: 50px;
+
+.titleattente{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    font-size: 50px;
 }

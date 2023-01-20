@@ -25,10 +25,14 @@ if(empty($_SESSION['email'])){
                 foreach ($subkey as $key2 => $attri) {
                     echo "<td>" . $attri . "</td>";
                 }
+            }
+        }else if($qui['role'] == "banned" ){
+            header('location:register.php');
+        }else if ($qui['role'] == "unverified" ){
+            header("location:enattente.php");
         }
     }
 }
-
 if(isset($_POST['depot'])){
     if(isset($_POST['numberaccount'], $_POST['solde']) && !empty($_POST['numberaccount']) && !empty($_POST['solde'])){
         

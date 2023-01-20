@@ -7,6 +7,16 @@
 
     if(empty($_SESSION['email'])){
         header("location:login.php");
+    }else{
+        $email = $_SESSION['email'];
+        $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+        $sqladmin->execute(array("email" => $email));
+        $role = $sqladmin->fetchAll();
+        foreach($role as $key => $qui){
+            if($qui['role'] == "banned" ){
+                header('location:register.php');
+            }
+        }
     }
 ?>
 
@@ -29,20 +39,17 @@
 
         
         <?php
-        if(!isset($_SESSION['email'])){
-            header("location:index.php");
-        }else{
-            $email = $_SESSION['email'];
-            $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
-            $sqladmin->execute(array("email" => $email));
-            $role = $sqladmin->fetchAll();
-            var_dump($role);
-            foreach($role as $key => $qui){
-                if($qui !== "admin" || $qui !== "moderator"){
-                    header("location:index.php");
-                }
+
+        $email = $_SESSION['email'];
+        $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+        $sqladmin->execute(array("email" => $email));
+        $role = $sqladmin->fetchAll();
+        foreach($role as $key => $qui){
+            if($qui['role'] !== "admin" && $qui['role'] !== "manager"){
+                header('location:index.php');
             }
         }
+
 
         $userId = [];
         echo "<h2>Select du désespoir</h2>";
@@ -68,7 +75,18 @@
                         foreach ($subkey as $key2 => $attri) {
                             echo "<td>" . $attri . "</td>";
                         }
-                        echo '<td ><form method="post" class="formGestion">
+                        $email = $_SESSION['email'];
+                        $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+                        $sqladmin->execute(array("email" => $email));
+                        $role = $sqladmin->fetchAll();
+                        $cpt = 0;
+                        foreach($role as $key => $qui){
+                            if($qui['role'] !== "admin" ){
+                                $cpt = 1;
+                            }
+                        }
+                        if ($cpt == 0){
+                            echo '<td ><form method="post" class="formGestion">
                             <select name="gerer" id="gererUsers">
                                 <option value="" class="sous_theme4">Gérer</option>
                                 <option value="banned">Bannir</option>
@@ -80,6 +98,19 @@
                             <input class="buttonGestion" type="submit" value="Valider" name="valideruser" class="inpbutton">
                         </form>
                         </td></tr>';
+                        }else{
+                            echo '<td ><form method="post" class="formGestion">
+                            <select name="gerer" id="gererUsers">
+                                <option value="" class="sous_theme4">Gérer</option>
+                                <option value="banned">Bannir</option>
+                                <option value="verifier">Vérifier</option>
+                                <option value="manager">Manager</option>
+                            </select>
+                            <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
+                            <input class="buttonGestion" type="submit" value="Valider" name="valideruser" class="inpbutton">
+                        </form>
+                        </td></tr>';
+                        }
                     }
                     echo '</table>';
                 } catch (Exception $e) {

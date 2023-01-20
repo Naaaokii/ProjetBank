@@ -3,8 +3,28 @@
 require_once __DIR__ . '/../src/init.php';
 // $db
 // $_SESSION
+
+if(empty($_SESSION['email'])){
+    header("location:login.php");
+}else{
+    $email = $_SESSION['email'];
+    $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+    $sqladmin->execute(array("email" => $email));
+    $role = $sqladmin->fetchAll();
+    foreach($role as $key => $qui){
+        if($qui['role'] == "banned" ){
+            header('location:register.php');
+        }else if ($qui['role'] == "unverified" ){
+            header("location:enattente.php");
+        }
+    }
+}
+
 if (isset($_POST['creer'])) {
     if (isset($_POST['monnaie'], $_POST['solde']) && !empty($_POST['monnaie']) && !empty($_POST['solde'])) {
+        if(empty($_SESSION['email'])){
+            header("location:login.php");
+        }
 
         $mail = $_SESSION['email'];
         $req = $dbh->prepare('SELECT id FROM users WHERE email = :email');

@@ -5,7 +5,15 @@ require_once __DIR__ . '/../src/init.php';
 // $_SESSION
 
 if(isset($_SESSION['email'])){
-    header("location:myaccount.php");
+    $email = $_SESSION['email'];
+    $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+    $sqladmin->execute(array("email" => $email));
+    $role = $sqladmin->fetchAll();
+    foreach($role as $key => $qui){
+        if($qui['role'] != "banned" ){
+            header("location:myaccount.php");
+        }
+    }
 }
 if(isset($_POST['connexion'])){
     if (isset($_POST['email']) && isset($_POST['password'])){
@@ -35,7 +43,19 @@ if(isset($_POST['connexion'])){
             else {
                 $_SESSION["email"] = $email;
                 $_SESSION["password"] = $hpass;
-                header("location:index.php");
+                $email = $_SESSION['email'];
+                $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+                $sqladmin->execute(array("email" => $email));
+                $role = $sqladmin->fetchAll();
+                foreach($role as $key => $qui){
+                    if($qui['role'] == "banned" ){
+                        header('location:banned.php');
+                    }else if ($qui['role'] == "unverified" ){
+                        header("location:enattente.php");
+                    }else{
+                        header("location:index.php");
+                    }
+                }
             }
         }
     }
