@@ -3,9 +3,7 @@
 require_once __DIR__ . '/../src/init.php';
 // $db
 // $_SESSION
-if(isset($_SESSION['email'])){
-    header("location:myaccount.php");
-}
+
 $erremail = $errpassword = $errconfpassword = $mdperrors = $usererrors = $success = "";
 $mdpreq = $confmdpreq = $emailok = 0;
             

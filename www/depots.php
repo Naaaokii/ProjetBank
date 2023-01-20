@@ -26,6 +26,8 @@ if(empty($_SESSION['email'])){
                     echo "<td>" . $attri . "</td>";
                 }
             }
+        }else if($qui['role'] == "banned" ){
+            header('location:register.php');
         }
     }
 }
