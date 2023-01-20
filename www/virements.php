@@ -45,15 +45,15 @@ if(isset($_POST['virement'])){
                 // Nouvelle solde expediteur après avoir retiré la somme
                 $soldeTotalExpediteur = $soldeActuelleExpediteur - $soldeDepot;
              
-                $req = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberExpediteur);
-                $req->execute(['solde' => $soldeTotalExpediteur]);
+                $req = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = :numero");
+                $req->execute(['solde' => $soldeTotalExpediteur, 'numero' => $numberExpediteur]);
     
     
                 // Nouvelle solde destinataire après avoir ajouté la somme
                 $soldeTotalDestinataire = $soldeActuelleDestinataire + $soldeDepot;
     
-                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberDestinataire);
-                $sth->execute(['solde' => $soldeTotalDestinataire]);
+                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = :numero");
+                $sth->execute(['solde' => $soldeTotalDestinataire, 'numero' => $numberDestinataire]);
             }else{
                 echo "T'as pas assez de thunes loser";
             }  

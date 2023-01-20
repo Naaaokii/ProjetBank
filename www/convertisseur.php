@@ -52,8 +52,8 @@ if(isset($_POST['convertir'])){
                     $soldeTotal = $soldeTotal * $valeurFutur;
                 }
             }
-            $sth = $dbh->prepare("UPDATE comptes SET solde = :solde, id_monaie = :id_monaie WHERE numero = ".$numberAccount);
-            $sth->execute(['solde' => $soldeTotal, 'id_monaie' => $idMonaie]);
+            $sth = $dbh->prepare("UPDATE comptes SET solde = :solde, id_monaie = :id_monaie WHERE numero = :numero");
+            $sth->execute(['solde' => $soldeTotal, 'id_monaie' => $idMonaie, 'numero' => $numberAccount]);
             
         }else{
             echo 'Numéro de compte invalide';

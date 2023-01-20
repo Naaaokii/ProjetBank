@@ -26,19 +26,23 @@ if(isset($_POST['connexion'])){
                 $message = "wrong password or mail";
                 echo "<script type='text/javascript'>alert('$message');</script>";
                 echo 'Email ou mot de passe invalide';
-            }else{
-                $message = "right password and mail";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-                $email  = $_POST['email'];
-                $user_info = $dbh->prepare('SELECT nom, prenom,email,telephone,date_de_naissance,role FROM users WHERE email = :email');
-                $user_info->bindValue(':email', $email);
-                $user_info->execute();
-                $resultat = $req->fetch(PDO::FETCH_ASSOC);
-                foreach($resultat as $key => $val){
-                    if ($key % 2 == 0) {
-                        $_SESSION[$key] = $val;
-                    }
-                }
+            }//else{
+            //     $message = "right password and mail";
+            //     echo "<script type='text/javascript'>alert('$message');</script>";
+            //     $email  = $_POST['email'];
+            //     $user_info = $dbh->prepare('SELECT nom, prenom,email,telephone,date_de_naissance,role FROM users WHERE email = :email');
+            //     $user_info->bindValue(':email', $email);
+            //     $user_info->execute();
+            //     $resultat = $req->fetch(PDO::FETCH_ASSOC);
+            //     foreach($resultat as $key => $val){
+            //         if ($key % 2 == 0) {
+            //             $_SESSION[$key] = $val;
+            //         }
+            //     }
+            // }
+            else {
+                $_SESSION["email"] = $email;
+                $_SESSION["password"] = $hpass;
                 header("location:index.php");
             }
         }
