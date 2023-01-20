@@ -437,3 +437,20 @@ input[type="radio"].optioncheck{
     margin-bottom : 15px;
 }
 
+/*---------------------------- Myaccount ------------------------------------*/
+
+.rib{
+    display:flex;
+    flex-direction : column;
+    justify-content:center;
+    margin-left:35%;
+    max-width:400px;
+    height : 200px;
+    border: 2px black solid;
+    box-shadow : 3px 3px 3px gray;
+}
+.ribinfo{
+    flex-direction:column;
+    margin-left:20px;
+    margin-bottom:10px;
+}

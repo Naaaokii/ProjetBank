@@ -3,31 +3,31 @@
 require_once __DIR__ . '/../src/init.php';
 // $db
 // $_SESSION
+if (isset($_POST['creer'])) {
+    if (isset($_POST['monnaie'], $_POST['solde']) && !empty($_POST['monnaie']) && !empty($_POST['solde'])) {
 
-if(isset($_POST['creer'])){
-    if(isset($_POST['monnaie'], $_POST['solde']) && !empty($_POST['monnaie']) && !empty($_POST['solde'])){
         $mail = $_SESSION['email'];
         $req = $dbh->prepare('SELECT id FROM users WHERE email = :email');
         $req->execute(array('email' => $mail));
         $user = $req->fetch();
         $idUser = $user['id'];
-         
-        $sth = $dbh->prepare('SELECT id_Monaie FROM monaies WHERE nom = :nom');
-        $sth->execute(array('nom' => $_POST['monnaie']));
-        $idMonaie = $sth->fetch();
+        var_dump($idUser);
 
-        foreach($idMonaie as $value){
-            $monnaie = $value;
-        }
+        $nom_monnaie = $_POST['monnaie'];
+        $sth = $dbh->prepare('SELECT id_Monnaie FROM monnaies WHERE nom = :nom');
+        $sth->execute(array('nom' => $nom_monnaie));
+        $idMonnaie = $sth->fetch();
+        var_dump($idMonnaie);
+        $monnaie = $idMonnaie["id_Monnaie"];
 
-        $numero = rand(10000000000,99999999999);
+        $numero = rand(10000000000, 99999999999);
+
         $solde = $_POST['solde'];
 
-        $sth = $dbh->prepare("INSERT INTO comptes (numero, id_user, id_monaie, solde) VALUES (?,?,?,?)");
+        $sth = $dbh->prepare("INSERT INTO comptes (numero, id_user, id_monnaie, solde) VALUES (?,?,?,?)");
         $sth->execute([$numero, $idUser, $monnaie, $solde]);
     }
 }
-
 ?>
 
 <?php

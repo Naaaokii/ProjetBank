@@ -7,36 +7,43 @@ require_once __DIR__ . '/../src/init.php';
 if(isset($_SESSION['email'])){
     header("location:myaccount.php");
 }
-    if(ISSET($_POST['connexion'])){
-        if (isset($_POST['email']) && isset($_POST['password'])){
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-
-            if (!empty($email) AND !empty($password)){
-                $hashpassword = hash('sha256', $password);
-                $req = $dbh->prepare('SELECT * FROM users WHERE email = :email and motdepasse = :motdepasse');
-                $req-> execute(array('email' => $email, 'motdepasse' => $hashpassword));
-                $resultat = $req->fetch(); 
-            }
+if(isset($_POST['connexion'])){
+    $message = "connexion";
+    echo "<script type='text/javascript'>alert('$message');</script>";
+    if (isset($_POST['email']) && isset($_POST['password'])){
+        $message = "champs remplis";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        if (!empty($email) AND !empty($password)){
+            $message = "champs pas vides";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            $hashpassword = hash('sha256', $password);
+            $req = $dbh->prepare('SELECT * FROM users WHERE email = :email and motdepasse = :motdepasse');
+            $req-> execute(array('email' => $email, 'motdepasse' => $hashpassword));
+            $resultat = $req->fetch(); 
             if (!$resultat){
+                $message = "wrong password or mail";
+                echo "<script type='text/javascript'>alert('$message');</script>";
                 echo 'Email ou mot de passe invalide';
-            }
-            else {
-                $user_id = ('SELECT id FROM user WHERE email= $email');
-                $_SESSION["email"] = $email;
-                $_SESSION["password"] = $hpass;
-
-                // $user_info = $dbh->prepare('SELECT nom,prenom,email,telephone,date_de_naissance,role FROM users WHERE email = ?');
-                // $user_info->execute($email);
-                // $resultat = $req->fetch();
-                // var_dump($resultat);
-                // foreach($resultat as $key => $val){
-                //     $_SESSION[$key] = $val;
-                // }
+            }else{
+                $message = "right password and mail";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                $email  = $_POST['email'];
+                $user_info = $dbh->prepare('SELECT nom, prenom,email,telephone,date_de_naissance,role FROM users WHERE email = :email');
+                $user_info->bindValue(':email', $email);
+                $user_info->execute();
+                $resultat = $req->fetch(PDO::FETCH_ASSOC);
+                foreach($resultat as $key => $val){
+                    if ($key % 2 == 0) {
+                        $_SESSION[$key] = $val;
+                    }
+                }
                 header("location:index.php");
             }
         }
     }
+}
 ?>
 
 <?php

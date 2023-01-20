@@ -25,6 +25,21 @@
 
         
         <?php
+        if(!isset($_SESSION['email'])){
+            header("location:index.php");
+        }else{
+            $email = $_SESSION['email'];
+            $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+
+            $sqladmin->execute(array("email" => $email));
+            $role = $sqladmin->fetchAll();
+            foreach($role as $key => $qui){
+                if($qui == "admin" || $qui == "moderator"){
+                    header("location:index.php");
+                }
+            }
+        }
+
         echo "<h2>Select du désespoir</h2>";
         if (isset($_POST['submit'])) {
             if(!empty($_POST["filtre"])){
@@ -44,7 +59,7 @@
                         foreach ($subkey as $key2 => $attri) {
                             echo "<td>" . $attri . "</td>";
                         }
-                        echo "<td ><button class='btngest' id='" . $ct . "' type='button' value='verifier'>verifier</button></td></tr>";
+                        echo "<td ><button class='btngest' type='button' value='verifier'>verifier</button></td></tr>";
                     }
                     echo '</table>';
                 } catch (Exception $e) {
@@ -56,6 +71,7 @@
         <form method="post">
             <input class='button' type="submit" value="Deconnexion" name="deconnexion" class="outbutton"> 
         </form>
+
         <footer class='footer'>
             <?php 
                 require_once __DIR__ . '/../src/templates/partials/footer.php'; 
