@@ -25,6 +25,7 @@
 
         
         <?php
+        $userId = [];
         echo "<h2>Select du désespoir</h2>";
         if (isset($_POST['submit'])) {
             if(!empty($_POST["filtre"])){
@@ -40,6 +41,7 @@
                     echo "<tr><th>Id</th><th>Nom</th><th>Prenom</th><th>Email</th><th>Role</th><th>Gérer</th></tr>";
                     $ct = 1;
                     foreach ($data as $key => $value) {
+                        
                         $subkey = $value;
                         echo "<tr>";
                         foreach ($subkey as $key2 => $attri) {
@@ -53,13 +55,25 @@
                                 <option value="manager">Manager</option>
                                 <option value="admin">Admin</option>
                             </select>
+                            <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
+                            <input class="buttonGestion" type="submit" value="Valider" name="valideruser" class="inpbutton">
                         </form>
-                        <input class="buttonGestion" type="submit" value="Valider" name="creer" class="inpbutton"></td></tr>';
+                        </td></tr>';
                     }
                     echo '</table>';
                 } catch (Exception $e) {
                     echo $e->getMessage();
                 }
+            }
+        }
+
+        if(isset($_POST['valideruser'])){
+            if(isset($_POST['gerer'], $_POST['userhid']) && !empty($_POST['gerer'])){
+                $idUser = $_POST['userhid'];
+                $roleuser = $_POST['gerer'];
+                
+                $sth = $dbh->prepare("UPDATE users SET role = :role WHERE id = :id");
+                $sth->execute(['id' => $idUser,'role' => $roleuser]);
             }
         }
         ?>

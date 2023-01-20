@@ -40,8 +40,8 @@ if(isset($_POST['retrait'])){
             if ($soldeActuelle > $soldeDepot){
                 $soldeTotal = $soldeActuelle - $soldeDepot;
             
-                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = ".$numberAccount);
-                $sth->execute(['solde' => $soldeTotal]);
+                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = :numero");
+                $sth->execute(['solde' => $soldeTotal, 'numero' => $numberAccount]);
 
                 echo "Vous avez bien retiré ".$soldeDepot." ".$nomMonaie.", il vous reste ".$soldeTotal." ".$nomMonaie;
             }else{
