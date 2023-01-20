@@ -11,10 +11,8 @@ if(empty($_SESSION['email'])){
     $sqladmin->execute(array("email" => $email));
     $role = $sqladmin->fetchAll();
     foreach($role as $key => $qui){
-        if($qui['role'] == "banned" ){
+        if($qui['role'] == "banned" || $qui['role'] == "unverified" ){
             header('location:register.php');
-        }else if ($qui['role'] == "unverified" ){
-            header("location:enattente.php");
         }
     }
 }
