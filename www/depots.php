@@ -40,7 +40,6 @@ if(isset($_POST['depot'])){
             echo 'Numéro de compte invalide';
         }
     }
-}
 ?>
 
 <?php
