@@ -103,7 +103,7 @@
                             <select name="gerer" id="gererUsers">
                                 <option value="" class="sous_theme4">Gérer</option>
                                 <option value="banned">Bannir</option>
-                                <option value="verifier">Vérifier</option>
+                                <option value="verified">Vérifier</option>
                                 <option value="manager">Manager</option>
                             </select>
                             <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
