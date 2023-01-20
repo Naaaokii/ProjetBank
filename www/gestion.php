@@ -34,11 +34,11 @@
         }else{
             $email = $_SESSION['email'];
             $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
-
             $sqladmin->execute(array("email" => $email));
             $role = $sqladmin->fetchAll();
+            var_dump($role);
             foreach($role as $key => $qui){
-                if($qui == "admin" || $qui == "moderator"){
+                if($qui !== "admin" || $qui !== "moderator"){
                     header("location:index.php");
                 }
             }
