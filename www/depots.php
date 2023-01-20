@@ -55,35 +55,42 @@ if(isset($_POST['depot'])){
         </header>
         <h1 class='title'>DEPOTS</h1>
         <?php
-        if(empty($_SESSION['email'])){
+        if(!isset($_SESSION['email'])){
             header("location:login.php");
         }else{
             $email = $_SESSION['email'];
             $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
             $sqladmin->execute(array("email" => $email));
-            $role = $sqladmin->fetch();
-            var_dump($role);
-            echo $role['role'];
-            if ($role['role'] == "admin" || $role['role'] == "moderator") {
-                $message = "as an admin you're allowed to see the deposits";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-
-                $autregalere = $dbh->prepare('SELECT depots.id_depot, depots.id_compte, monnaies.nom, depots.montant FROM
-                depots INNER JOIN monnaies ON depots.id_monnaie = monnaies.id_Monnaies WHERE depots.verif = 0;');
-                $autregalere->execute();
-                $depots = $autregalere->fetchAll(PDO::FETCH_ASSOC);
-                echo "<div><tr><th>Id dépots</th><th>id compte</th><th>id monaie </th><th>montant</th><th>verifier?</th><tr></tr>";
-                foreach ($depots as $key => $value) {
-                    $subkey = $value;
-                    echo "<tr>";
-                    foreach ($subkey as $key2 => $attri) {
-                        echo "<td>" . $attri . "</td>";
-                    }
-                    
-                }
-                echo "</div>";
+            $role = $sqladmin->fetch(PDO::FETCH_ASSOC);
+            if(!$role["role"]=="admin"|| !$role["role"]== "manager"){
+                header("location:index.php");
             }
         }
+        $email = $_SESSION['email'];
+        $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+        $sqladmin->execute(array("email" => $email));
+        $role = $sqladmin->fetch();
+
+        if ($role['role'] == "admin" || $role['role'] == "moderator") {
+
+            //$autregalere = $dbh->prepare('SELECT depots.id_depot, depots.id_compte, monnaies.nom, depots.montant FROM
+            //depots INNER JOIN monnaies ON depots.id_monnaie = monnaies.id_Monnaies WHERE depots.verif = 0;');
+            $autregalere = $dbh->prepare('SELECT id_depot, id_compte, id_monnaie, montant FROM depots WHERE verif = 0;');
+            $autregalere->execute();
+            $depots = $autregalere->fetchAll(PDO::FETCH_ASSOC);
+            echo "<table id='tabdepots'>";
+            echo "<div><tr><th>Id dépots</th><th>id compte</th><th>id monaie </th><th>montant</th><th>verifier?</th><tr></tr>";
+            foreach ($depots as $key => $value) {
+                $subkey = $value;
+                echo "<tr>";
+                foreach ($subkey as $key2 => $attri) {
+                    echo "<td>" .$attri. "</td>";
+                }
+                echo "</tr>";
+            }
+        echo '</table>';
+        }
+
         ?>
         <div class="createaccount">
             <h2 class='titlecreateaccount'>Faire un dépot</h2>

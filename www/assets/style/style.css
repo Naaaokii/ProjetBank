@@ -500,3 +500,30 @@ input[type="radio"].optioncheck{
 #decobutton{
     margin-top: 50px;
 }
+
+
+/*---------------------------- Depots ------------------------------------*/
+
+#tabdepots {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+#tabdepots td, #tabgestion th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#tabdepots th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #3df161;
+    color: white;
+}
+#tabdepots tr:nth-child(even){background-color: lightgray;
+}
+.btngest{
+    background-color : white;
+    width : 150px;
+    height : 30px;
+}

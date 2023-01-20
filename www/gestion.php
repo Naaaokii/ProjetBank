@@ -30,17 +30,14 @@
         
         <?php
         if(!isset($_SESSION['email'])){
-            header("location:index.php");
+            header("location:login.php");
         }else{
             $email = $_SESSION['email'];
             $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
             $sqladmin->execute(array("email" => $email));
-            $role = $sqladmin->fetchAll();
-            var_dump($role);
-            foreach($role as $key => $qui){
-                if($qui !== "admin" || $qui !== "moderator"){
-                    header("location:index.php");
-                }
+            $role = $sqladmin->fetch(PDO::FETCH_ASSOC);
+            if(!$role["role"]=="admin"|| !$role["role"]== "manager"){
+                header("location:index.php");
             }
         }
 
