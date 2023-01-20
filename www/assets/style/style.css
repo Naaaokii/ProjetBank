@@ -484,7 +484,7 @@ input[type="radio"].optioncheck{
     flex-direction:column;
     margin-left:20px;
     margin-bottom:10px;
-    
+}
 #gererUsers{
     border-radius: 5px;
 }
