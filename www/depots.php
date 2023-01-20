@@ -28,6 +28,8 @@ if(empty($_SESSION['email'])){
             }
         }else if($qui['role'] == "banned" ){
             header('location:register.php');
+        }else if ($qui['role'] == "unverified" ){
+            header("location:enattente.php");
         }
     }
 }

@@ -13,6 +13,8 @@ if(empty($_SESSION['email'])){
     foreach($role as $key => $qui){
         if($qui['role'] == "banned" ){
             header('location:register.php');
+        }else if ($qui['role'] == "unverified" ){
+            header("location:enattente.php");
         }
     }
 }

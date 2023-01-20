@@ -509,3 +509,11 @@ input[type="radio"].optioncheck{
     margin-bottom: 200px;
     font-size: 100px;
 }
+
+.titleattente{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    font-size: 50px;
+}

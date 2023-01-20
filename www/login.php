@@ -50,6 +50,8 @@ if(isset($_POST['connexion'])){
                 foreach($role as $key => $qui){
                     if($qui['role'] == "banned" ){
                         header('location:banned.php');
+                    }else if ($qui['role'] == "unverified" ){
+                        header("location:enattente.php");
                     }else{
                         header("location:index.php");
                     }
