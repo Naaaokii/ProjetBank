@@ -15,10 +15,10 @@
         <h1 class='title'>Gestion</h1>
         <form method="post" action="">
         <legend id="choixfiltre"><b>Filtres de recherche</b></legend>
-            <input type="radio" id="first" class="optioncheck" name="filtre[]" value=""/>tous les utilisateurs</input>
-            <input type="radio" class="optioncheck" name="filtre" value="WHERE role = 'unverified'"/>les non-verifié</input>
-            <input type="radio" class="optioncheck" name="filtre" value="WHERE role = 'banned'"/>les bannis</input>
-            <input type="radio" class="optioncheck" name="filtre" value="WHERE role = 'verified'"/>les verifiés</input>
+            <input type="radio" id="first" class="optioncheck" name="filtre" value="all"/>tous les utilisateurs</input>
+            <input type="radio" class="optioncheck" name="filtre" value="unverified"/>les non-verifié</input>
+            <input type="radio" class="optioncheck" name="filtre" value="banned"/>les bannis</input>
+            <input type="radio" class="optioncheck" name="filtre" value="verified"/>les verifiés</input>
             </br>
             <input type="submit" value="filtrer" name="submit" id="submitfiltre">
         </form>
@@ -32,8 +32,11 @@
                 $filtre = $_POST['filtre'];
                 try {
                     echo "<table id='tabgestion'>";
-                    $variable = $dbh->prepare('SELECT id,nom,prenom,email,role FROM users '.$filtre.' ORDER BY nom');
-                    $variable->execute();
+                    if ($filtre == 'all'){
+                        $filtre = '%';
+                    }
+                    $variable = $dbh->prepare('SELECT id,nom,prenom,email,role FROM users WHERE role LIKE :role ORDER BY nom');
+                    $variable->execute(['role' => $filtre]);
                     $data = $variable->fetchAll(PDO::FETCH_ASSOC);
                     if (empty($data)) {
                         throw new Exception("Aucun résultat trouvé avec les filtres sélectionnés.");
@@ -78,7 +81,6 @@
         }
         ?>
         <form method="post">
-            <input class='validerall' type="submit" value="Tout valider" name="validerall">
             <input class='button' id='decobutton' type="submit" value="Deconnexion" name="deconnexion" class="outbutton"> 
         </form>
         <footer class='footer'>

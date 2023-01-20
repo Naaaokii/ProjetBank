@@ -22,7 +22,6 @@ if(isset($_SESSION['email'])){
                 echo 'Email ou mot de passe invalide';
             }
             else {
-                $user_id = ('SELECT id FROM user WHERE email= $email');
                 $_SESSION["email"] = $email;
                 $_SESSION["password"] = $hpass;
                 header("location:index.php");
