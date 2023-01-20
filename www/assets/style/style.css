@@ -256,7 +256,7 @@ div p{
     text-decoration: none;
     width: 150px;
     height: 50px;
-    background: rgb(199, 34, 34);
+    background: rgb(60, 209, 49);
     border: rgb(199, 34, 34) solid 1px;
     border-radius: 5px;
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -468,6 +468,23 @@ input[type="radio"].optioncheck{
     margin-bottom : 15px;
 }
 
+/*---------------------------- Myaccount ------------------------------------*/
+
+.rib{
+    display:flex;
+    flex-direction : column;
+    justify-content:center;
+    margin-left:35%;
+    max-width:400px;
+    height : 200px;
+    border: 2px black solid;
+    box-shadow : 3px 3px 3px gray;
+}
+.ribinfo{
+    flex-direction:column;
+    margin-left:20px;
+    margin-bottom:10px;
+}
 #gererUsers{
     border-radius: 5px;
 }

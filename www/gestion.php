@@ -29,6 +29,21 @@
 
         
         <?php
+        if(!isset($_SESSION['email'])){
+            header("location:index.php");
+        }else{
+            $email = $_SESSION['email'];
+            $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+            $sqladmin->execute(array("email" => $email));
+            $role = $sqladmin->fetchAll();
+            var_dump($role);
+            foreach($role as $key => $qui){
+                if($qui !== "admin" || $qui !== "moderator"){
+                    header("location:index.php");
+                }
+            }
+        }
+
         $userId = [];
         echo "<h2>Select du désespoir</h2>";
         if (isset($_POST['submit'])) {
@@ -46,7 +61,6 @@
                         throw new Exception("Aucun résultat trouvé avec les filtres sélectionnés.");
                     }
                     echo "<tr><th>Id</th><th>Nom</th><th>Prenom</th><th>Email</th><th>Role</th><th>Gérer</th></tr>";
-                    $ct = 1;
                     foreach ($data as $key => $value) {
                         
                         $subkey = $value;
@@ -87,6 +101,7 @@
         <form method="post">
             <input class='button' id='decobutton' type="submit" value="Deconnexion" name="deconnexion" class="outbutton"> 
         </form>
+
         <footer class='footer'>
             <?php 
                 require_once __DIR__ . '/../src/templates/partials/footer.php'; 
