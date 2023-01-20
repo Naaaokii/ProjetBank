@@ -476,9 +476,10 @@ input[type="radio"].optioncheck{
     justify-content:center;
     margin-left:35%;
     max-width:400px;
-    height : 200px;
+    height : 310px;
     border: 2px black solid;
     box-shadow : 3px 3px 3px gray;
+    margin-top: 50px;
 }
 .ribinfo{
     flex-direction:column;
