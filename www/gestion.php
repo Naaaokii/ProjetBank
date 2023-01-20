@@ -4,6 +4,10 @@
     require_once __DIR__ . '/../src/templates/partials/html_head.php';
     require_once __DIR__ . '/../src/init.php';
     require_once __DIR__ . '/../src/class/DbManager.php';
+
+    if(empty($_SESSION['email'])){
+        header("location:login.php");
+    }
 ?>
 
     <body>

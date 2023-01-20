@@ -4,6 +4,10 @@ require_once __DIR__ . '/../src/init.php';
 // $db
 // $_SESSION
 
+if(empty($_SESSION['email'])){
+    header("location:login.php");
+}
+
 if(isset($_POST['depot'])){
     if(isset($_POST['numberaccount'], $_POST['solde']) && !empty($_POST['numberaccount']) && !empty($_POST['solde'])){
         

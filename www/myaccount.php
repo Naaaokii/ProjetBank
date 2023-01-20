@@ -3,6 +3,9 @@
 require_once __DIR__ . '/../src/init.php';
 // $db
 // $_SESSION
+if(empty($_SESSION['email'])){
+    header("location:login.php");
+}
 
 if(ISSET($_POST['deconnexion'])){
     session_destroy();
