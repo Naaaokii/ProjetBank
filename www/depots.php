@@ -4,6 +4,31 @@ require_once __DIR__ . '/../src/init.php';
 // $db
 // $_SESSION
 
+if(empty($_SESSION['email'])){
+    header("location:login.php");
+}else{
+    $email = $_SESSION['email'];
+    $sqladmin = $dbh->prepare('SELECT role FROM users WHERE email = :email');
+    $sqladmin->execute(array("email" => $email));
+    $role = $sqladmin->fetchAll();
+    foreach ($role as $key => $qui) {
+        if ($qui == "admin" || $qui == "moderator") {
+            $message = "right password and mail";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            $autregalere = $dbh->prepare('SELECT * FROM depots WHERE verif = 0');
+            $autregalere->execute();
+            $depots = $autregalere->fetchAll();
+            echo "<tr><th>Id dépots</th><th>id compte</th><th>id monaie </th><th>montant</th><th>verifier?</th><tr></tr>";
+            foreach ($depots as $key => $value) {
+                $subkey = $value;
+                echo "<tr>";
+                foreach ($subkey as $key2 => $attri) {
+                    echo "<td>" . $attri . "</td>";
+                }
+        }
+    }
+}
+
 if(isset($_POST['depot'])){
     if(isset($_POST['numberaccount'], $_POST['solde']) && !empty($_POST['numberaccount']) && !empty($_POST['solde'])){
         

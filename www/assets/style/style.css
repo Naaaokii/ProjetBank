@@ -123,6 +123,7 @@ div p{
 
 
 
+
 /*------------------------- COLOR --------------------------------------*/
 
 
@@ -153,7 +154,11 @@ div p{
 
 #monnaie{
     margin-left: 720px;
+    margin-left: 720px;
     width: 220px;
+    border-radius: 2px;
+    height: 30px;
+    border-block-color: rgb(126, 217, 87) ;
     border-radius: 2px;
     height: 30px;
     border-block-color: rgb(126, 217, 87) ;
@@ -181,10 +186,19 @@ div p{
     border-radius: 2px;
     height: 30px;
     border-block-color: rgb(126, 217, 87) ;
+    margin-left: 720px;
+    border-radius: 2px;
+    height: 30px;
+    border-block-color: rgb(126, 217, 87) ;
 }
 
 .numberaccount{
     width: 215px;
+    margin-left: 720px;
+    border-radius: 2px;
+    height: 30px;
+    border-block-color: rgb(126, 217, 87)
+
     margin-left: 720px;
     border-radius: 2px;
     height: 30px;
@@ -205,9 +219,33 @@ div p{
     border-radius: 5px;
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
     color: white;
+    display: flex;
+    margin-left: 720px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 100px;
+    height: 40px;
+    background: rgb(126, 217, 87);
+    border: rgb(126, 217, 87) solid 1px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: white;
 }
 
 .buttondaccount{
+    display: flex;
+    margin-left: 720px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 100px;
+    height: 40px;
+    background: rgb(126, 217, 87);
+    border: rgb(126, 217, 87) solid 1px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: white;
     display: flex;
     margin-left: 720px;
     align-items: center;
@@ -255,12 +293,14 @@ div p{
     justify-content: center;
     text-decoration: none;
     width: 150px;
+    width: 150px;
     height: 50px;
     background: rgb(199, 34, 34);
     border: rgb(199, 34, 34) solid 1px;
     border-radius: 5px;
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
     color: white;
+    margin-left: 780px;
     margin-left: 780px;
 }
 
@@ -393,6 +433,7 @@ form .zone_register {
 .button_register{
     width: 100px;
     height: 40px;
+    height: 40px;
     background: orange;
     border: rgba(0, 0, 50, 0.5) solid 1px;
     border-radius: 5px;
@@ -493,6 +534,9 @@ input[type="radio"].optioncheck{
     color: white;
 }
 
+#decobutton{
+    margin-top: 50px;
+}
 #decobutton{
     margin-top: 50px;
 }
