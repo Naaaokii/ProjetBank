@@ -43,7 +43,7 @@ if(isset($_SESSION['email'])){
         </header>
         <div class="connexion">
             <section class="block_logo">
-                <img src="assets/imgs/logo_helices.png">
+                <img src="assets/imgs/bankADEpng.png">
             </section>
             <section class="block_form">
                 <div class="total">
