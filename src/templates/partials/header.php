@@ -7,6 +7,7 @@
             <a href="depots.php" class="correctlink">DEPOTS</a>
             <a href="retraits.php" class="correctlink">RETRAITS</a>
             <a href="convertisseur.php" class="correctlink">CONVERTISSEUR</a>
+            <a href="gestion.php" class="correctlink">GESTION</a>
             <a href="login.php"><i class="fa-solid fa-user"></i></a>
         </div>
     </nav>
