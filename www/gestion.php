@@ -45,7 +45,16 @@
                         foreach ($subkey as $key2 => $attri) {
                             echo "<td>" . $attri . "</td>";
                         }
-                        echo "<td ><button class='btngest' id='" . $ct . "' type='button' value='verifier'>verifier</button></td></tr>";
+                        echo '<td ><form method="post" class="formGestion">
+                            <select name="gerer" id="gererUsers">
+                                <option value="" class="sous_theme4">Gérer</option>
+                                <option value="banned">Bannir</option>
+                                <option value="verifier">Vérifier</option>
+                                <option value="manager">Manager</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </form>
+                        <input class="buttonGestion" type="submit" value="Valider" name="creer" class="inpbutton"></td></tr>';
                     }
                     echo '</table>';
                 } catch (Exception $e) {
@@ -55,7 +64,8 @@
         }
         ?>
         <form method="post">
-            <input class='button' type="submit" value="Deconnexion" name="deconnexion" class="outbutton"> 
+            <input class='validerall' type="submit" value="Tout valider" name="validerall">
+            <input class='button' id='decobutton' type="submit" value="Deconnexion" name="deconnexion" class="outbutton"> 
         </form>
         <footer class='footer'>
             <?php 
