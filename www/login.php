@@ -8,24 +8,16 @@ if(isset($_SESSION['email'])){
     header("location:myaccount.php");
 }
 if(isset($_POST['connexion'])){
-    $message = "connexion";
-    echo "<script type='text/javascript'>alert('$message');</script>";
     if (isset($_POST['email']) && isset($_POST['password'])){
-        $message = "champs remplis";
-        echo "<script type='text/javascript'>alert('$message');</script>";
         $email = $_POST['email'];
         $password = $_POST['password'];
         if (!empty($email) AND !empty($password)){
-            $message = "champs pas vides";
-            echo "<script type='text/javascript'>alert('$message');</script>";
             $hashpassword = hash('sha256', $password);
             $req = $dbh->prepare('SELECT * FROM users WHERE email = :email and motdepasse = :motdepasse');
             $req-> execute(array('email' => $email, 'motdepasse' => $hashpassword));
             $resultat = $req->fetch(); 
             if (!$resultat){
                 $message = "wrong password or mail";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-                echo 'Email ou mot de passe invalide';
             }//else{
             //     $message = "right password and mail";
             //     echo "<script type='text/javascript'>alert('$message');</script>";
@@ -86,7 +78,8 @@ if(isset($_POST['connexion'])){
                             </div>
                             <a href="#" class="mdp">Mot de passe oublié ?</a>
                             <div class="align">
-                                <input class='button' type="submit" value="connexion" name="connexion" class="inpbutton"> <a href="register.php" class="reglink">Inscription</a>
+                                <input class='button' type="submit" value="Connexion" name="connexion" class="inpbutton"> 
+                                <a href="register.php" class="reglink">Inscription</a>
                             </div>
                     </form>
                 </div>
