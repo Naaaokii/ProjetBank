@@ -51,7 +51,7 @@ if(isset($_POST['creer'])){
                     <option value="pesos">Pesos</option>
                     <option value="yen">Yen</option>
                     <option value="ls">LS</option>
-                </select>
+                </div>
                 <input class="solde" type="number"  name="solde"  id="solde"  placeholder="Solde" required>
                 <input class='buttondaccount' type="submit" value="Créér" name="creer" class="inpbutton">
             </form>
