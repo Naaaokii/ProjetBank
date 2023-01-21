@@ -61,7 +61,7 @@
                     if ($filtre == 'all'){
                         $filtre = '%';
                     }
-                    $variable = $dbh->prepare('SELECT id,nom,prenom,email,role FROM users WHERE role LIKE :role ORDER BY nom');
+                    $variable = $dbh->prepare('SELECT id,nom,prenom,email,role FROM users WHERE role LIKE :role ORDER BY id');
                     $variable->execute(['role' => $filtre]);
                     $data = $variable->fetchAll(PDO::FETCH_ASSOC);
                     if (empty($data)) {

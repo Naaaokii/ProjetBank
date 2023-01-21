@@ -78,8 +78,8 @@ if(isset($_POST['virement'])){
                 $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = :numero");
                 $sth->execute(['solde' => $soldeTotalDestinataire, 'numero' => $numberDestinataire]);
 
-                $req = $dbh->prepare("INSERT INTO transactions(id_compte_expediteur, montant, id_monaie, date, num_compte_destinataire, num_compte_expediteur)  VALUES (?,?,?,NOW(),?,?)");
-                $req->execute([$idExpediteur, $soldeDepot, $monaieId, $numberDestinataire, $numberExpediteur]);
+                $req = $dbh->prepare("INSERT INTO transactions(id_compte_expediteur, montant, id_monaie, date, num_compte_destinataire, num_compte_expediteur, id_user)  VALUES (?,?,?,NOW(),?,?,?)");
+                $req->execute([$idExpediteur, $soldeDepot, $monaieId, $numberDestinataire, $numberExpediteur, $idUser]);
             }else{
                 echo "T'as pas assez de thunes loser";
             }  
@@ -88,6 +88,7 @@ if(isset($_POST['virement'])){
         }  
     }
 }
+
 ?>
 
 <?php
@@ -110,6 +111,39 @@ if(isset($_POST['virement'])){
                 <input class='buttonvirement' type="submit" value="Valider" name="virement" class="inpbutton">
             </form>
         </div>
+        <section class="virementsaffiche">
+            <?php
+                try {
+                    $mail = $_SESSION['email'];
+                    $req = $dbh->prepare('SELECT id FROM users WHERE email = :email');
+                    $req->execute(array('email' => $mail));
+                    $user = $req->fetch();
+                    $idUser = $user['id'];
+                    echo "<table id='tabgestion'>";
+                    $variable = $dbh->prepare('SELECT id, id_compte_expediteur, montant, id_monaie, date, num_compte_destinataire, num_compte_expediteur, id_user FROM transactions WHERE id_user = :id_user ORDER BY date');
+                    $variable->execute(['id_user' => $idUser]);
+                    $data = $variable->fetchAll(PDO::FETCH_ASSOC);
+                    $cpt = 0;
+                    if (empty($data)) {
+                        throw new Exception("Aucun résultat trouvé avec les filtres sélectionnés.");
+                    }
+                    echo "<tr><th>Id</th><th>Id du compte expediteur</th><th>Montant</th><th>Id monaie</th><th>Date</th><th>Numéro du compte destinataire</th><th>Numéro du compte expediteur</th><th>Id user</th></tr>";
+                    foreach ($data as $key => $value) {
+                        if ($cpt < 10){
+                            $cpt += 1;
+                            $subkey = $value;
+                            echo "<tr>";
+                            foreach ($subkey as $key2 => $attri) {
+                                echo "<td>" . $attri . "</td>";
+                            }
+                        }     
+                    }
+                    echo '</table>';
+                } catch (Exception $e) {
+                    echo $e->getMessage();
+                }
+            ?>
+        </section>
         <footer class='footer'>
             <?php 
                 require_once __DIR__ . '/../src/templates/partials/footer.php'; 
