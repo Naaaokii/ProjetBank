@@ -45,16 +45,23 @@ if(isset($_POST['virement'])){
         if ($idUser == $userId){
 
             // Récupérer la solde actuelle de l'expediteur
-            $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero1');
+            $req = $dbh->prepare('SELECT id_cmpt, solde FROM comptes WHERE numero = :numero1');
             $req->execute(array('numero1' => $numberExpediteur));
-            $soldeAccountExpediteur = $req->fetch();
-            $soldeActuelleExpediteur = $soldeAccountExpediteur['solde'];
+            $resultatComptes = $req->fetch();
+            $soldeActuelleExpediteur = $resultatComptes['solde'];
+            $idExpediteur = $resultatComptes['id_cmpt'];
 
             // Récupérer la solde actuelle du destinataire
-            $sth = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero2');
+            $sth = $dbh->prepare('SELECT id_cmpt, solde FROM comptes WHERE numero = :numero2');
             $sth->execute(array('numero2' => $numberDestinataire));
             $soldeAccountDestinataire = $sth->fetch();
             $soldeActuelleDestinataire = $soldeAccountDestinataire['solde'];
+            $idDestinataire = $resultatComptes['id_cmpt'];
+
+            $sth = $dbh->prepare('SELECT id_monaie FROM comptes WHERE numero = :numero1');
+            $sth->execute(array('numero1' => $numberExpediteur));
+            $user = $sth->fetch();
+            $monaieId = $user['id_monaie'];
 
             if ($soldeActuelleExpediteur >= $soldeDepot){
 
@@ -70,6 +77,9 @@ if(isset($_POST['virement'])){
     
                 $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = :numero");
                 $sth->execute(['solde' => $soldeTotalDestinataire, 'numero' => $numberDestinataire]);
+
+                $req = $dbh->prepare("INSERT INTO transactions(id_compte_expediteur, montant, id_monaie, date, num_compte_destinataire, num_compte_expediteur)  VALUES (?,?,?,NOW(),?,?)");
+                $req->execute([$idExpediteur, $soldeDepot, $monaieId, $numberDestinataire, $numberExpediteur]);
             }else{
                 echo "T'as pas assez de thunes loser";
             }  

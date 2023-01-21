@@ -146,6 +146,14 @@
                                     <input class="buttonGestion" type="submit" value="Valider" name="validerdepot" class="inpbutton">
                                 </form>
                                 </td></tr>';
+                            }else if ($montantRetrait != false){
+                                echo '<td ><p>Demande de retrait de '.$montantRetrait['montant'].'
+                                    <form method="post" class="formGestion">
+                                    <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
+                                    <input class="retraithid" type="hidden" value="'.$montantRetrait['montant'].'" name="retraithid">
+                                    <input class="buttonGestion" type="submit" value="Valider" name="validerretrait" class="inpbutton">
+                                </form>
+                                </td></tr>';
                             }
                         }
                     }
