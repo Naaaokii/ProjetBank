@@ -42,11 +42,12 @@ if(isset($_POST['retrait'])){
         // Si le numero de compte de l'expediteur est bien celui de la personne connecté
         if ($idUser == $userId){
 
-            $req = $dbh->prepare('SELECT solde, id_monaie FROM comptes WHERE numero = :numero');
+            $req = $dbh->prepare('SELECT id_cmpt, solde, id_monaie FROM comptes WHERE numero = :numero');
             $req->execute(array('numero' => $numberAccount));
-            $monaieId = $req->fetch();
-            $soldeActuelle = $monaieId['solde'];
-            $idMonaie = $monaieId['id_monaie'];
+            $comptesInfos = $req->fetch();
+            $soldeActuelle = $comptesInfos['solde'];
+            $idMonaie = $comptesInfos['id_monaie'];
+            $compteId = $comptesInfos['id_cmpt'];
 
             $sth = $dbh->prepare('SELECT nom FROM monaies WHERE id_monaie = :id_monaie');
             $sth->execute(array('id_monaie' => $idMonaie));
@@ -54,12 +55,10 @@ if(isset($_POST['retrait'])){
             $nomMonaie = $monaie['nom'];
 
             if ($soldeActuelle > $soldeDepot){
-                $soldeTotal = $soldeActuelle - $soldeDepot;
-            
-                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = :numero");
-                $sth->execute(['solde' => $soldeTotal, 'numero' => $numberAccount]);
 
-                echo "Vous avez bien retiré ".$soldeDepot." ".$nomMonaie.", il vous reste ".$soldeTotal." ".$nomMonaie;
+                $req = $dbh->prepare("INSERT INTO retraits(id_compte, id_monaie, montant, verif, id_user)  VALUES (?,?,?,?,?)");
+                $req->execute([$compteId, $idMonaie, $soldeDepot, 'unverified', $idUser]);
+
             }else{
                 echo "T'as pas assez de thunes loser";
             }  
