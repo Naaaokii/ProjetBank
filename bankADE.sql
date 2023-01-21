@@ -117,12 +117,14 @@ ALTER TABLE `retraits`
 --
 
 CREATE TABLE `transactions` (
-  `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `id_compte` INT NOT NULL,
-  `num_compte_expediteur` VARCHAR(32) NOT NULL,
-  `id_monnaie` INT NOT NULL,
-  `date` DATETIME NOT NULL,
-  `num_compte_destinataire`	VARCHAR(32) NOT NULL
+  `id` int(11) NOT NULL,
+  `id_compte_expediteur` int(15) NOT NULL,
+  `montant` decimal(15,4) NOT NULL,
+  `id_monaie` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `num_compte_destinataire` varchar(32) NOT NULL,
+  `num_compte_expediteur` varchar(32) NOT NULL,
+  `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `transactions`
