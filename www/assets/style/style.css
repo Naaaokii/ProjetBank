@@ -501,6 +501,15 @@ input[type="radio"].optioncheck{
     margin-top: 50px;
 }
 
+.mycomptes{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    height: 300px;
+}
+
 
 /*---------------------------- Depots ------------------------------------*/
 
@@ -527,3 +536,4 @@ input[type="radio"].optioncheck{
     width : 150px;
     height : 30px;
 }
+

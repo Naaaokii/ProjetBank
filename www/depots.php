@@ -5,9 +5,9 @@ require_once __DIR__ . '/../src/init.php';
 // $_SESSION
 
 
-if(isset($_POST['depot'])){
-    if(isset($_POST['numberaccount'], $_POST['solde']) && !empty($_POST['numberaccount']) && !empty($_POST['solde'])){
-        
+if (isset($_POST['depot'])) {
+    if (isset($_POST['numberaccount'], $_POST['solde']) && !empty($_POST['numberaccount']) && !empty($_POST['solde'])) {
+
         $numberAccount = $_POST['numberaccount'];
         $soldeDepot = $_POST['solde'];
 
@@ -25,7 +25,7 @@ if(isset($_POST['depot'])){
         $userId = $user['id_user'];
 
         // Si le numero de compte de l'expediteur est bien celui de la personne connecté
-        if ($idUser == $userId){
+        if ($idUser == $userId) {
 
             $req = $dbh->prepare('SELECT solde FROM comptes WHERE numero = :numero');
             $req->execute(array('numero' => $numberAccount));
@@ -33,13 +33,14 @@ if(isset($_POST['depot'])){
             $soldeActuelle = $soldeAccount['solde'];
 
             $soldeTotal = $soldeActuelle + $soldeDepot;
-            
+
             $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE numero = :numero");
             $sth->execute(['solde' => $soldeTotal, 'numero' => $numberAccount]);
-        }else{
+        } else {
             echo 'Numéro de compte invalide';
         }
     }
+}
 ?>
 
 <?php

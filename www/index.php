@@ -31,13 +31,11 @@ if (isset($_POST['creer'])) {
         $req->execute(array('email' => $mail));
         $user = $req->fetch();
         $idUser = $user['id'];
-        var_dump($idUser);
 
         $nom_monnaie = $_POST['monnaie'];
         $sth = $dbh->prepare('SELECT id_Monnaie FROM monnaies WHERE nom = :nom');
         $sth->execute(array('nom' => $nom_monnaie));
         $idMonnaie = $sth->fetch();
-        var_dump($idMonnaie);
         $monnaie = $idMonnaie["id_Monnaie"];
 
         $numero = rand(10000000000, 99999999999);
