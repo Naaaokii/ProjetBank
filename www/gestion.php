@@ -84,6 +84,10 @@
                         $req->execute(array("id_user" => $value['id'], "verif" => 'unverified'));
                         $montant = $req->fetch();
 
+                        $req = $dbh->prepare('SELECT montant FROM retraits WHERE id_user = :id_user AND verif = :verif');
+                        $req->execute(array("id_user" => $value['id'], "verif" => 'unverified'));
+                        $montantRetrait = $req->fetch();
+
                         $cpt = 0;
                         foreach($role as $key => $qui){
                             if($qui['role'] !== "admin" ){
@@ -110,6 +114,14 @@
                                     <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
                                     <input class="depothid" type="hidden" value="'.$montant['montant'].'" name="depothid">
                                     <input class="buttonGestion" type="submit" value="Valider" name="validerdepot" class="inpbutton">
+                                </form>
+                                </td></tr>';
+                            }else if ($montantRetrait != false){
+                                echo '<td ><p>Demande de retrait de '.$montantRetrait['montant'].'
+                                    <form method="post" class="formGestion">
+                                    <input class="userhid" type="hidden" value="'.$value['id'].'" name="userhid">
+                                    <input class="retraithid" type="hidden" value="'.$montantRetrait['montant'].'" name="retraithid">
+                                    <input class="buttonGestion" type="submit" value="Valider" name="validerretrait" class="inpbutton">
                                 </form>
                                 </td></tr>';
                             }
@@ -158,6 +170,7 @@
             if(isset($_POST['depothid'], $_POST['userhid'])){
                 $idUser = $_POST['userhid'];
                 $montantDepot = $_POST['depothid'];
+
                 $sth = $dbh->prepare("SELECT id_compte FROM depots WHERE id_user = :id_user");
                 $sth->execute(['id_user' => $idUser]);
                 $idCompte = $sth->fetch();
@@ -173,6 +186,30 @@
                 $sth->execute(['solde' => $soldeTotal,'id_cmpt' => $idCompte['id_compte']]);
 
                 $req = $dbh->prepare("UPDATE depots SET verif = :verif WHERE id_user = :id_user AND verif = :verif2");
+                $req->execute(['verif' => 'verified','id_user' => $idUser, 'verif2' => 'unverified']);
+            }
+        }
+
+        if(isset($_POST['validerretrait'])){
+            if(isset($_POST['retraithid'], $_POST['userhid'])){
+                $idUser = $_POST['userhid'];
+                $montantRetrait2 = $_POST['retraithid'];
+
+                $sth = $dbh->prepare("SELECT id_compte FROM depots WHERE id_user = :id_user");
+                $sth->execute(['id_user' => $idUser]);
+                $idCompte = $sth->fetch();
+
+                $req = $dbh->prepare('SELECT solde FROM comptes WHERE id_cmpt = :id_cmpt');
+                $req->execute(array('id_cmpt' => $idCompte['id_compte']));
+                $soldeAccount = $req->fetch();
+                $soldeActuelle = $soldeAccount['solde'];
+
+                $soldeTotal = $soldeActuelle - $montantRetrait2;
+                
+                $sth = $dbh->prepare("UPDATE comptes SET solde = :solde WHERE id_cmpt = :id_cmpt");
+                $sth->execute(['solde' => $soldeTotal,'id_cmpt' => $idCompte['id_compte']]);
+
+                $req = $dbh->prepare("UPDATE retraits SET verif = :verif WHERE id_user = :id_user AND verif = :verif2");
                 $req->execute(['verif' => 'verified','id_user' => $idUser, 'verif2' => 'unverified']);
             }
         }
