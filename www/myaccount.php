@@ -47,7 +47,7 @@ require_once __DIR__ . '/../src/templates/partials/html_head.php';
                 }
             }
             echo "</div>";
-        $reqct = $dbh->prepare('SELECT comptes.numero, comptes.id_Cmpt, comptes.solde , monnaies.nom FROM
+        $reqct = $dbh->prepare('SELECT comptes.numero, comptes.id_Cmpt, comptes.solde , monnaies.nom AS devise FROM
         comptes INNER JOIN monnaies ON  comptes.id_monnaie = monnaies.id_Monnaie WHERE comptes.id_user = :id_user ;');
         $reqct->execute(array('id_user' => $_SESSION["ID"]));
         $comptes = $reqct->fetchAll(PDO::FETCH_ASSOC);
@@ -55,12 +55,9 @@ require_once __DIR__ . '/../src/templates/partials/html_head.php';
             $info = $cmpt;
             echo "<div class='mycomptes'>";
             foreach($info as $key2 => $info) {
-                // if(gettype($info)=="Float") {
-                //     round($info,2);
-                // }
                 echo "<p>" . $key2." : ". $info . "</p>";
             }
-            echo "</div>";
+            echo "</div><br>";
         }
         ?> 
         <form method="post">
